@@ -11,6 +11,11 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<dependencies>
+		<dependency>
+			<groupId>com.fengtaiguang</groupId>
+			<artifactId>photoalbum-model</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<!-- /////////WEB配置-开始///////// -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -84,11 +89,19 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
-
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>
