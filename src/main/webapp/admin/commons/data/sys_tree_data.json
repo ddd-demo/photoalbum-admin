@@ -1,0 +1,53 @@
+[{
+	"id":1,
+	"text":"系统管理",
+	"children":[{
+		"id":11,
+		"text":"权限管理",
+		"state":"closed",
+		"children":[{
+			"id":111,
+			"text":"角色管理",
+			"url":"role/role.html"
+		},{
+			"id":112,
+			"text":"权限管理"
+		},{
+			"id":113,
+			"text":"权限组管理"
+		}]
+	},{
+		"id":12,
+		"text":"系统设置",
+		"children":[{
+			"id":121,
+			"text":"系统常量设置"
+		},{
+			"id":122,
+			"text":"数据表设置",
+			"attributes":{
+				"p1":"Custom Attribute1",
+				"p2":"Custom Attribute2"
+			}
+		},{
+			"id":123,
+			"text":"系统皮肤"
+		},{
+			"id":124,
+			"text":"系统备份",
+			"checked":true
+		}]
+	},{
+		"id":13,
+		"text":"用户管理",
+		"url":"user/user.jsp"
+	},{
+		"id":14,
+		"text":"相册管理",
+		"url":"album/main"
+	},{
+		"id":15,
+		"text":"相片管理",
+		"url":"photo/main"
+	}]
+}]

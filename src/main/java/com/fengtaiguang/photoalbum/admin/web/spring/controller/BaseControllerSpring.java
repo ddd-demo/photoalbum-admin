@@ -1,36 +1,42 @@
 package com.fengtaiguang.photoalbum.admin.web.spring.controller;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 public class BaseControllerSpring {
+	CloseableHttpClient httpClient = HttpClients.createDefault();
 
-	public String post_jsonString(String url) throws ClientProtocolException, IOException {
-		CloseableHttpClient httpclient = HttpClients.createDefault();
-		String entityString = null;
-		try {
-			HttpPost httpPost = new HttpPost(url);
-			CloseableHttpResponse response = httpclient.execute(httpPost);
+	public String post(String url, String jsonParameters) {
+		HttpPost method = new HttpPost(url);
+		String body = null;
+		if (method != null & jsonParameters != null && !"".equals(jsonParameters.trim())) {
 			try {
-				System.out.println("------------------post----------------------");
-				System.out.println(response.getStatusLine());
-				entityString = EntityUtils.toString(response.getEntity());
-				System.out.println("....entityString=" + entityString);
-				// User user = gson.fromJson(entityString, User.class);
-				// System.out.println("user:" + user);
-				httpPost.abort();
+				// 建立一个NameValuePair数组，用于存储欲传送的参数
+				method.addHeader("Content-type", "application/json; charset=utf-8");
+				method.setHeader("Accept", "application/json");
+				method.setEntity(new StringEntity(jsonParameters, Charset.forName("UTF-8")));
+				HttpResponse response = httpClient.execute(method);
+				int statusCode = response.getStatusLine().getStatusCode();
+				// Read the response body
+				body = EntityUtils.toString(response.getEntity());
+				System.out.println(".......业务服务器返回的数据:" + body);
+			} catch (IOException e) {
+				e.printStackTrace();
 			} finally {
-				response.close();
+
 			}
-		} finally {
-			httpclient.close();
 		}
-		return entityString;
+		return body;
 	}
+
 }
