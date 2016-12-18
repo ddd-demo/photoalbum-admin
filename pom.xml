@@ -10,6 +10,7 @@
 	<artifactId>photoalbum-admin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+	<!-- 后台管理系统 -->
 	<dependencies>
 		<dependency>
 			<groupId>com.fengtaiguang</groupId>
