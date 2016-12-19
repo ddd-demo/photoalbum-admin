@@ -19,7 +19,6 @@ $(function() {
 					+ '<iframe src="'
 					+ url
 					+ '" scrolling="auto" style="width:100%;height:100%;border:0;" ></iframe></div>';
-
 			elTab.tabs('add', {
 				title : text,
 				content : content,
@@ -43,7 +42,7 @@ function executeDelete(delInfo) {
 					$.messager.alert('删除提示', '没有唯一标示的ID，请检查唯一标示的字段名称!',
 							'warning');
 				}
-				var url = delInfo.delUrl + "?" + delInfo.keyName + "="
+				var url = WebCommon.getWebPath(delInfo.delUrl) + "?" + delInfo.keyName + "="
 						+ keyValue
 				$.ajax({
 					url : url,
@@ -55,25 +54,7 @@ function executeDelete(delInfo) {
 		$.messager.alert('删除提示', '至少选择一条记录后才能删除!', 'warning');
 	}
 }
-function sendFormByAjax(url, formId, cudHandler) {
-	var data = $(formId).serialize()
-	$.ajax({
-		url : url,
-		type : "post",
-		// contentType : "application/json;charset=utf-8",
-		dataType : "json",
-		data : data,
-		success : function(data) {
-			//if(cudHandler){
-				cudHandler.callback(data);
-			//}
-		},
-		error : function(xrequest, textStatus, errorThrown) {
-			$.messager.alert('系统提示:', '请求失败！错误:' + xrequest.responseText,
-					'error');
-		}
-	});
-}
+
 /** 增加、修改、删除操作后的默认回调函数。 */
 function CUDHandler(message, datagridId) {
 	// 对应的本次操作消息
@@ -90,7 +71,7 @@ CUDHandler.prototype.callback = function(isSuccess) {
 		}
 		$.messager.alert('系统提示:', msg, 'info');
 		if (this.datagridId) {
-			$(datagridId).datagrid('reload');
+			$(this.datagridId).datagrid('reload');
 		}
 	} else {
 		msg = '[操作失败]!';
@@ -100,3 +81,4 @@ CUDHandler.prototype.callback = function(isSuccess) {
 		$.messager.alert('系统提示:', msg, 'error');
 	}
 }
+

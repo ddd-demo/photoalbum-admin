@@ -7,10 +7,8 @@
 <meta charset="UTF-8">
 <title>user</title>
 <jsp:include page="../commons/jsp/header_easyui.jsp" />
-<script type="text/javascript" src="album.js"></script>
-<script type="text/javascript">
-	
-</script>
+
+<script type="text/javascript" src="${webBase}album.js"></script>
 </head>
 
 <body class="easyui-layout" data-options="border:false">
@@ -51,9 +49,11 @@
 		</div>
 	</div>
 
+
+
 	<!-- input form page -->
 	<div id="inputAlbumWin" class="easyui-dialog" title="录入相册信息"
-		style="width: 400px; padding: 10px"
+		style="width: 400px; hight: 500px; padding: 10px"
 		data-options="
 				closed:true,
 				iconCls: 'icon-save',
@@ -83,7 +83,8 @@
 				}]
 			">
 		<div class="easyui-layout">
-			<form id="albumForm" method="post">
+			<form id="albumForm" method="post"
+				action="/photoalbum-admin/admin/album/find">
 				<div style="margin-bottom: 20px">
 					<input class="easyui-textbox" name="name" style="width: 100%"
 						data-options="label:'相册名称:',required:true">

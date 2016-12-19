@@ -3,8 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	var user = {
+		saveFormId : "#userFormId",
+		keyName : "userId",
+
+		showInputWin : function() {
+			//show win
+		},
+		showEditWin : function() {
+			//show win
+		},
+		showViewWin : function() {
+			//show win
+		},
+		doSave : function() {
+			//AJAX--->send form
+			alert(this.saveFormId);
+
+		},
+
+		doUpdate : function() {
+			//AJAX--->send form
+			alert(this.saveFormId);
+		},
+		doDelete : function() {
+			//AJAX--->send id 
+			//url  ?userId=0001==>  "?"+this.keyName+"="+id
+			//datagrid--->get id
+			alert(this.keyName);
+		},
+		doFind : function() {
+			//AJAX---->JSON object || findForm
+
+		}
+	}
+	user.doUpdate()
+</script>
 </head>
 <body>
-welcame.....
+	welcame.....
+	<div></div>
 </body>
 </html>

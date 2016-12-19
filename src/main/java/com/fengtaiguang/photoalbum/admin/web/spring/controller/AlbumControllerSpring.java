@@ -40,20 +40,19 @@ public class AlbumControllerSpring extends BaseControllerSpring {
 		return "album/album";
 	}
 
-	@RequestMapping("find")
+	@RequestMapping(value="find")
 	@ResponseBody
 	public IQueryAndResult find(AlbumDto album) throws Exception {
 		QueryAndResult queryAndResult = new QueryAndResult();
 		System.out.println("........list album:" + album);
 		String jsonString = post(ALBUM_find_URL, "{}");
 		CollectionType listType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, AlbumDto.class);
-		// the sieze of the list is dependon the str json length although the
-		// json content is not the POJO type maybe
-		List<AlbumDto> userList;
-		userList = mapper.readValue(jsonString, listType);
+		List<AlbumDto>list;
+		//如果是传统三层的话，直接调用service
+		list = mapper.readValue(jsonString, listType);
 		QueryAndResultEasyUI queryAndResultEasyUI = new QueryAndResultEasyUI();
-		queryAndResultEasyUI.setTotal(20);
-		queryAndResultEasyUI.setRows(userList);
+		queryAndResultEasyUI.setTotal(list.size());
+		queryAndResultEasyUI.setRows(list);
 		return queryAndResultEasyUI;
 	}
 
