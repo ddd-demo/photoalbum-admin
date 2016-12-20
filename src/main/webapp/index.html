@@ -3,42 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="admin/easyui1.5/jquery.min.js"></script>
 <script type="text/javascript">
-	var user = {
-		saveFormId : "#userFormId",
-		keyName : "userId",
-
-		showInputWin : function() {
-			//show win
-		},
-		showEditWin : function() {
-			//show win
-		},
-		showViewWin : function() {
-			//show win
-		},
-		doSave : function() {
-			//AJAX--->send form
-			alert(this.saveFormId);
-
-		},
-
-		doUpdate : function() {
-			//AJAX--->send form
-			alert(this.saveFormId);
-		},
-		doDelete : function() {
-			//AJAX--->send id 
-			//url  ?userId=0001==>  "?"+this.keyName+"="+id
-			//datagrid--->get id
-			alert(this.keyName);
-		},
-		doFind : function() {
-			//AJAX---->JSON object || findForm
-
+	var a={
+			name:"aaa",
+			age:19
+	}
+	var b={
+		name:"n001",
+		a1:{
+			save:function(){
+				var p1=$(this).parent()
+				alert(p1));
+			}
 		}
 	}
-	user.doUpdate()
+	b.a1.save();
 </script>
 </head>
 <body>
