@@ -11,108 +11,13 @@
 <script type="text/javascript" src="${webBase}album.js"></script>
 
 <script type="text/javascript">
-	function AlbumView() {
-		//输入窗口
-		this.inputWin = {
-			inputWinId : "#inputWin",
-			inputFormId : "#inputForm",
-			initInputView : function() {
-				var me = this;
-				$(this.inputWinId).dialog({
-					closed : true,
-					iconCls : 'icon-save',
-					toolbar : [ {
-						text : '新增',
-						iconCls : 'icon-add',
-						handler : function() {
-							$(me.inputFormId).form('clear');
-						}
-					}, '-', {
-						text : '保存',
-						iconCls : 'icon-save',
-						handler : function() {
-							albumService.doSave();
-						}
-					} ],
-					buttons : [ {
-						text : '保存',
-						handler : function() {
-							albumService.doSave();
-						}
-					}, {
-						text : '关闭',
-						handler : function() {
-							$(me.inputWinId).dialog('close')
-						}
-					} ]
-				})
-			}
-
-		};
-		/////////////////////////
-		this.datagrid = {
-			datagridId : "datagridId",
-			
-			initDatagrid : function() {
-				// 定义冻结列
-				var frozenColumns = [ [ {
-					field : 'id', // 如果生成的checkbox为 <input type="checkbox" name="code"
-				// value="xxx" > 则方便form提交
-					checkbox : true
-				}, {
-					field : 'name',
-					title : '相册名称',
-					width : 80
-				} ] ];
-
-				// 定义标题栏
-				var columns = [ [ {
-					field : 'description',
-					title : '相册描述',
-					width : 200
-				}, {
-					field : 'number',
-					title : '相册编号',
-					width : 100
-				} ] ];
-
-				var url = WebCommon.getWebPath(this.urls.findUri);
-				var temp = this;
-
-				// 创建grid
-				$(this.datagridId).datagrid({
-					url : url,
-					iconCls : 'icon-forward',
-					fit : true,
-					border : false,
-					rownumbers : true,
-					striped : true,
-					// pageList: [30,50,100],
-					pagination : true,
-					singleSelect : true,
-					// method:'get',
-					// singleSelect : true,
-					// toolbar : toolbar1,
-					toolbar : temp.ids.toolbarId,
-					idField : temp.keyName,
-					frozenColumns : frozenColumns,
-					columns : columns
-				});
-			}
-		}
-		this.ininView = function() {
-			this.initInputView();
-			this.initDatagrid();
-			
-		}
-	}
 </script>
 </head>
 
 <body class="easyui-layout" data-options="border:false">
 	<!-- footer:'#userFt', -->
 	<table id="datagridId"></table>
-	<div id="toolbar">
+	<div id="toolbarId">
 		<table cellspacing="0" cellpadding="0">
 			<tr>
 				<td><a id="showInputWinBut" href="#" class="easyui-linkbutton"
@@ -152,10 +57,10 @@
 	</div>
 
 	<!-- input form page -->
-	<div id="inputWin" class="easyui-dialog" title="录入相册信息"
+	<div id="inputWinId" class="easyui-dialog" title="录入相册信息"
 		style="width: 400px; hight: 500px; padding: 10px">
 		<div class="easyui-layout">
-			<form id="inputForm" method="post">
+			<form id="inputFormId" method="post">
 				<div style="margin-bottom: 20px">
 					<input class="easyui-textbox" name="name" style="width: 100%"
 						data-options="label:'相册名称:',required:true">
