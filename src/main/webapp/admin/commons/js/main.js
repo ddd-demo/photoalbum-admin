@@ -98,12 +98,26 @@ function BaseService(config) {
 						$.messager.alert('删除提示', '没有唯一标示的ID，请检查唯一标示的字段名称!',
 								'warning');
 					}
-					var url = me.controller.getUrl("deleteUri") + "?"
-							+ config.keyName + "=" + keyValue
+					var url = me.controller.getUrl("deleteUri") +"/"+ keyValue
+					alert(url);
 					$.ajax({
 						url : url,
-						success : hardler.callback
-					})
+						type : "get",
+						dataType : "json",
+						//data : data,
+						success : function(data) {
+							if(data==true){
+								$(this.datagridId).datagrid('reload');
+							}else{
+								$.messager.alert('系统提示:', "删除失败", 'error');
+							}
+							
+						},
+						error : function(xrequest, textStatus, errorThrown) {
+							$.messager.alert('系统提示:', '请求失败！错误:' + xrequest.responseText,
+									'error');
+						}
+					});
 				}
 			});
 		} else {

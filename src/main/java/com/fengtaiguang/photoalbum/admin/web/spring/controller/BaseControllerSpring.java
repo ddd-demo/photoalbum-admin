@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -24,7 +25,9 @@ public class BaseControllerSpring {
 				// 建立一个NameValuePair数组，用于存储欲传送的参数
 				method.addHeader("Content-type", "application/json; charset=utf-8");
 				method.setHeader("Accept", "application/json");
-				method.setEntity(new StringEntity(jsonParameters, Charset.forName("UTF-8")));
+				if(!StringUtils.isBlank(jsonParameters)){
+					method.setEntity(new StringEntity(jsonParameters, Charset.forName("UTF-8")));
+				}
 				HttpResponse response = httpClient.execute(method);
 				int statusCode = response.getStatusLine().getStatusCode();
 				// Read the response body

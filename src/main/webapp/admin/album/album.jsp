@@ -70,7 +70,7 @@
 				</div>
 				<div style="margin-bottom: 20px">
 					<input class="easyui-textbox" name=number style="width: 100%"
-						data-options="label:'相册排序:',required:true">
+						data-options="label:'相册排序:',required:true" value="2">
 				</div>
 				<div style="margin-bottom: 20px">
 					<input class="easyui-textbox" name="description"
