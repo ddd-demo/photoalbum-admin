@@ -11,6 +11,7 @@
 <script type="text/javascript" src="${webBase}album.js"></script>
 
 <script type="text/javascript">
+	
 </script>
 </head>
 
@@ -21,22 +22,24 @@
 		<table cellspacing="0" cellpadding="0">
 			<tr>
 				<td><a id="showInputWinBut" href="#" class="easyui-linkbutton"
-					iconCls="icon-add" plain="true" onclick="album.showInputWin()">增加</a></td>
+					iconCls="icon-add" plain="true">增加</a></td>
 				<td>
 					<div class="datagrid-btn-separator"></div>
 				</td>
 				<td><a id="showEditWinBut" href="#" class="easyui-linkbutton"
-					iconCls="icon-edit" plain="true" onclick="album.showEidtWin()">编辑</a></td>
+					iconCls="icon-edit" plain="true"
+					onclick="albumService.showEidtWin()">编辑</a></td>
 				<td>
 					<div class="datagrid-btn-separator"></div>
 				</td>
 				<td><a id="showViewWinBut" href="#" class="easyui-linkbutton"
-					iconCls="icon-save" plain="true" onclick="album.doSave()">详情</a></td>
+					iconCls="icon-save" plain="true" onclick="albumService.doSave()">详情</a></td>
 				<td>
 					<div class="datagrid-btn-separator"></div>
 				</td>
 				<td><a id="deleteBut" href="#" class="easyui-linkbutton"
-					iconCls="icon-remove" plain="true" onclick="album.doDelete()">删除</a></td>
+					iconCls="icon-remove" plain="true"
+					onclick="albumService.doDelete()">删除</a></td>
 			</tr>
 		</table>
 		<div class="datagrid-toolbar"></div>

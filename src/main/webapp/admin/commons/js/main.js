@@ -30,31 +30,6 @@ $(function() {
 
 });
 
-// 通用删除方法
-function executeDelete(delInfo) {
-	// datagrid, keyName, delUrl, callback
-	var row = $(delInfo.datagrid).datagrid('getSelected');
-	if (row) {
-		$.messager.confirm('删除提示', '你确认删除选中的记录吗?', function(r) {
-			if (r) {
-				var keyValue = row[delInfo.keyName];
-				if (!keyValue) {
-					$.messager.alert('删除提示', '没有唯一标示的ID，请检查唯一标示的字段名称!',
-							'warning');
-				}
-				var url = WebCommon.getWebPath(delInfo.delUrl) + "?" + delInfo.keyName + "="
-						+ keyValue
-				$.ajax({
-					url : url,
-					success : delInfo.callback
-				})
-			}
-		});
-	} else {
-		$.messager.alert('删除提示', '至少选择一条记录后才能删除!', 'warning');
-	}
-}
-
 /** 增加、修改、删除操作后的默认回调函数。 */
 function CUDHandler(message, datagridId) {
 	// 对应的本次操作消息
@@ -82,3 +57,68 @@ CUDHandler.prototype.callback = function(isSuccess) {
 	}
 }
 
+// ========================service============================
+function BaseService(config) {
+	var me = this;
+	this.controller = {};
+	if (config) {
+		$.extend(this, config);
+	}
+	// ============函数==============================
+	this.doSave = function(config) {
+		var handler = new CUDHandler(me.moduleName + "增加", config.datagridId);
+		var url = me.controller.getUrl("saveUri");
+		var data = $(config.saveFormId).serialize();
+		$.ajax({
+			url : url,
+			type : "post",
+			dataType : "json",
+			data : data,
+			success : function(data) {
+				handler.callback(data)
+			},
+			error : function(xrequest, textStatus, errorThrown) {
+				$.messager.alert('系统提示:', '请求失败！错误:' + xrequest.responseText,
+						'error');
+			}
+		});
+	};
+	this.doUpdate = function(saveFormId, datagridId) {
+		var handler = new CUDHandler(this.moduleName + "修改", datagridId);
+		// sendFormByAjax(this.updateUri, this.saveFormId, cudHandler);
+	};
+	this.doDelete = function(config) {
+		var handler = new CUDHandler(this.moduleName + "删除", config.datagridId);
+		var row = $(config.datagridId).datagrid('getSelected');
+		if (row) {
+			$.messager.confirm('删除提示', '你确认删除选中的记录吗?', function(r) {
+				if (r) {
+					var keyValue = row[config.keyName];
+					if (!keyValue) {
+						$.messager.alert('删除提示', '没有唯一标示的ID，请检查唯一标示的字段名称!',
+								'warning');
+					}
+					var url = me.controller.getUrl("deleteUri") + "?"
+							+ config.keyName + "=" + keyValue
+					$.ajax({
+						url : url,
+						success : hardler.callback
+					})
+				}
+			});
+		} else {
+			$.messager.alert('删除提示', '至少选择一条记录后才能删除!', 'warning');
+		}
+
+	};
+	this.doView = function(datagridId, keyValue) {
+
+	};
+	this.doFind = function(datagridId) {
+		var url = me.controller.getUrl("findUri");
+		$(datagridId).datagrid({
+			url : url
+		})
+	};
+
+}
