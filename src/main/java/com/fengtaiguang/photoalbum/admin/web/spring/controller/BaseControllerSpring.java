@@ -32,7 +32,6 @@ public class BaseControllerSpring {
 				int statusCode = response.getStatusLine().getStatusCode();
 				// Read the response body
 				body = EntityUtils.toString(response.getEntity());
-				System.out.println(".......业务服务器返回的数据:" + body);
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
