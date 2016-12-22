@@ -1,18 +1,15 @@
 package com.fengtaiguang.photoalbum.admin.web.spring.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fengtaiguang.ddd.framwork.domain.vo.query.IQueryAndResult;
@@ -83,8 +80,12 @@ public class AlbumControllerSpring extends BaseControllerSpring {
 	@ResponseBody
 	public AlbumDto view(@PathVariable String id) throws Exception {
 		System.out.println("........view:" + id);
-		String content = post(ALBUM_GET_URL+"/"+id, null);
-		AlbumDto album = mapper.readValue(content, AlbumDto.class);
+		String content = post(ALBUM_GET_URL + "/" + id, "{}");
+		AlbumDto album = null;
+		if (!StringUtils.isBlank(content)) {
+			album = mapper.readValue(content, AlbumDto.class);
+		}
+
 		return album;
 	}
 
@@ -99,9 +100,9 @@ public class AlbumControllerSpring extends BaseControllerSpring {
 	@RequestMapping("delete/{id}")
 	@ResponseBody
 	public Boolean delete(@PathVariable String id) throws Exception {
-		String url=ALBUM_DELETE_URL+"/"+id;
+		String url = ALBUM_DELETE_URL + "/" + id;
 		System.out.println("........delete: url=" + url);
-		
+
 		post(url, "{}");
 		return true;
 	}

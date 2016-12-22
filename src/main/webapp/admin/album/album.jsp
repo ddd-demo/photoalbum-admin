@@ -62,23 +62,62 @@
 	<!-- input form page -->
 	<div id="inputWinId" class="easyui-dialog" title="录入相册信息"
 		style="width: 400px; hight: 500px; padding: 10px">
-		<div class="easyui-layout">
-			<form id="inputFormId" method="post">
-				<div style="margin-bottom: 20px">
-					<input class="easyui-textbox" name="name" style="width: 100%"
-						data-options="label:'相册名称:',required:true">
-				</div>
-				<div style="margin-bottom: 20px">
-					<input class="easyui-textbox" name=number style="width: 100%"
-						data-options="label:'相册排序:',required:true" value="2">
-				</div>
-				<div style="margin-bottom: 20px">
-					<input class="easyui-textbox" name="description"
-						style="width: 100%; height: 60px"
-						data-options="label:'相册描述:',multiline:true">
-				</div>
-			</form>
-		</div>
+		<form id="inputFormId">
+			<input name="id" type="hidden">
+			<div style="margin-bottom: 20px">
+				<input class="easyui-textbox" name="name" style="width: 90%"
+					data-options="label:'相册名称:',required:true">
+			</div>
+			<div style="margin-bottom: 20px">
+				<input class="easyui-textbox" name=number style="width: 90%"
+					data-options="label:'相册排序:',required:true">
+			</div>
+			<div style="margin-bottom: 20px">
+				<input class="easyui-textbox" name="description"
+					style="width: 90%; height: 60px"
+					data-options="label:'相册描述:',multiline:true">
+			</div>
+		</form>
+	</div>
+	<!-- 通用form -->
+	<div id="editWinId" class="easyui-dialog" title="编辑相册信息"
+		style="width: 400px; hight: 500px; padding: 10px">
+		<form id="editFormId">
+			<input name="id" type="hidden">
+			<div style="margin-bottom: 20px">
+				<input class="easyui-textbox" name="name" style="width: 90%"
+					data-options="label:'相册名称:',required:true">
+			</div>
+			<div style="margin-bottom: 20px">
+				<input class="easyui-textbox" name=number style="width: 90%"
+					data-options="label:'相册排序:',required:true">
+			</div>
+			<div style="margin-bottom: 20px">
+				<input class="easyui-textbox" name="description"
+					style="width: 90%; height: 60px"
+					data-options="label:'相册描述:',multiline:true">
+			</div>
+		</form>
+	</div>
+
+	<div id="viewWinId" class="easyui-dialog" title="相册信息"
+		style="width: 400px; hight: 500px; padding: 10px">
+		<form id="viewFormId">
+			<table>
+				<tr>
+					<td>相册名称</td>
+					<td><label name="name"></label></td>
+				</tr>
+				<tr>
+					<td>相册排序:</td>
+					<td><label name="number"></label></td>
+				</tr>
+				<tr>
+					<td>相册描述</td>
+					<td><label name="description"></label></td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </body>
 </html>

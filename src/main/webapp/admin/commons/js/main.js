@@ -83,9 +83,23 @@ function BaseService(config) {
 			}
 		});
 	};
-	this.doUpdate = function(saveFormId, datagridId) {
-		var handler = new CUDHandler(this.moduleName + "修改", datagridId);
-		// sendFormByAjax(this.updateUri, this.saveFormId, cudHandler);
+	this.doUpdate = function(config) {
+		var handler = new CUDHandler(this.moduleName + "修改", config.datagridId);
+		var url = me.controller.getUrl("updateUri");
+		var data = $(config.saveFormId).serialize();
+		$.ajax({
+			url : url,
+			type : "post",
+			dataType : "json",
+			data : data,
+			success : function(data) {
+				handler.callback(data)
+			},
+			error : function(xrequest, textStatus, errorThrown) {
+				$.messager.alert('系统提示:', '请求失败！错误:' + xrequest.responseText,
+						'error');
+			}
+		});
 	};
 	this.doDelete = function(config) {
 		var handler = new CUDHandler(this.moduleName + "删除", config.datagridId);
@@ -104,7 +118,6 @@ function BaseService(config) {
 						url : url,
 						type : "get",
 						dataType : "json",
-						// data : data,
 						success : function(data) {
 							if (data == true) {
 								$(config.datagridId).datagrid('reload');
@@ -121,11 +134,52 @@ function BaseService(config) {
 				}
 			});
 		} else {
-			$.messager.alert('删除提示', '至少选择一条记录后才能删除!', 'warning');
+			$.messager.alert('系统提示', '至少选择一条记录后才能删除!', 'warning');
 		}
 
 	};
-	this.doView = function(datagridId, keyValue) {
+	this.doEdit = function(config) {
+		var row = $(config.datagridId).datagrid('getSelected');
+		if (row) {
+			var keyValue = row[config.keyName];
+			var url = me.controller.getUrl("editUri") + "/" + keyValue
+			$.ajax({
+				url : url,
+				type : "get",
+				dataType : "json",
+				success : function(data) {
+					config.handler(data);
+				},
+				error : function(xrequest, textStatus, errorThrown) {
+					$.messager.alert('系统提示:', '请求失败！错误:'
+							+ xrequest.responseText, 'error');
+				}
+			});
+		} else {
+			$.messager.alert('系统提示', '至少选择一条记录后才能编辑!', 'warning');
+		}
+
+	};
+	this.doView = function(config) {
+		var row = $(config.datagridId).datagrid('getSelected');
+		if (row) {
+			var keyValue = row[config.keyName];
+			var url = me.controller.getUrl("viewUri") + "/" + keyValue
+			$.ajax({
+				url : url,
+				type : "get",
+				dataType : "json",
+				success : function(data) {
+					config.handler(data);
+				},
+				error : function(xrequest, textStatus, errorThrown) {
+					$.messager.alert('系统提示:', '请求失败！错误:'
+							+ xrequest.responseText, 'error');
+				}
+			});
+		} else {
+			$.messager.alert('系统提示', '至少选择一条记录后才能加载数据!', 'warning');
+		}
 
 	};
 	this.doFind = function(datagridId) {

@@ -1,7 +1,7 @@
 /**
  * 原始JS封装MVC
- * */
-////////视图层///////////////////////////////////////////////////
+ */
+// //////视图层///////////////////////////////////////////////////
 function AlbumView() {
 	var me = this;
 	this.service = {};
@@ -17,7 +17,7 @@ function AlbumView() {
 					text : '新增',
 					iconCls : 'icon-add',
 					handler : function() {
-						$(me.inputFormId).form('clear');
+						$(me.inputWin.inputFormId).form('clear');
 					}
 				}, '-', {
 					text : '保存',
@@ -40,13 +40,56 @@ function AlbumView() {
 				}, {
 					text : '关闭',
 					handler : function() {
-						$(me.inputWinId).dialog('close')
+						$(me.inputWin.inputWinId).dialog('close');
 					}
 				} ]
 			};
 			$(this.inputWinId).dialog(winConfig);
 		}
-
+	};
+	// 编辑窗口
+	this.editWin = {
+		editWinId : "#editWinId",
+		editFormId : "#editFormId",
+		init : function() {
+			var winConfig = {
+				closed : true,
+				iconCls : 'icon-edit',
+				buttons : [ {
+					text : '保存',
+					handler : function() {
+						me.service.doUpdate({
+							saveFormId : me.editWin.editFormId,
+							datagridId : me.datagrid.datagridId
+						});
+					}
+				}, {
+					text : '关闭',
+					handler : function() {
+						$(me.editWin.editWinId).dialog('close');
+					}
+				} ]
+			};
+			$(this.editWinId).dialog(winConfig);
+		}
+	};
+	// 信息窗口
+	this.viewWin = {
+		viewWinId : "#viewWinId",
+		viewFormId : "#viewFormId",
+		init : function() {
+			var winConfig = {
+				closed : true,
+				iconCls : 'icon-save',
+				buttons : [ {
+					text : '关闭',
+					handler : function() {
+						$(me.viewWin.viewWinId).dialog('close');
+					}
+				} ]
+			};
+			$(me.viewWin.viewWinId).dialog(winConfig);
+		}
 	};
 	// ///////////////////////
 	this.datagrid = {
@@ -81,8 +124,8 @@ function AlbumView() {
 			// 工具条单击事件
 			$("#showInputWinBut").on("click", function() {
 				$(me.inputWin.inputWinId).dialog({
-					left : 0,
-					top : 0,
+					// left : 0,
+					// top : 0,
 					closed : false,
 					cache : false,
 					// href: 'input_user.html',
@@ -90,14 +133,51 @@ function AlbumView() {
 				});
 			});
 			$("#showEditWinBut").on("click", function() {
-
+				var handler = function(data) {
+					$(me.editWin.editWinId).dialog({
+						// left : 0,
+						// top : 0,
+						closed : false,
+						cache : false,
+						// href: 'input_user.html',
+						modal : false
+					});
+					$(me.editWin.editFormId).form("load", data);
+				}
+				me.service.doEdit({
+					keyName : me.datagrid.keyName,
+					datagridId : me.datagrid.datagridId,
+					handler : handler
+				});
 			});
 			$("#showViewWinBut").on("click", function() {
-
+				var handler = function(data) {
+					var eidtwin = $(me.viewWin.viewWinId).dialog({
+						// left : 0,
+						// top : 0,
+						closed : false,
+						cache : false,
+						// href: 'input_user.html',
+						modal : false
+					});
+					var selEx = me.viewWin.viewFormId + " label"
+					var labels = $(selEx);
+					labels.each(function() {
+						var val = data[$(this).attr("name")];
+						if (val != null) {
+							$(this).text(val);
+						}
+					});
+				}
+				me.service.doView({
+					keyName : me.datagrid.keyName,
+					datagridId : me.datagrid.datagridId,
+					handler : handler
+				});
 			});
 			$("#deleteBut").on("click", function() {
 				me.service.doDelete({
-					keyName :me.datagrid.keyName,
+					keyName : me.datagrid.keyName,
 					datagridId : me.datagrid.datagridId
 				});
 			});
@@ -124,7 +204,10 @@ function AlbumView() {
 	}
 	this.init = function() {
 		me.inputWin.init();
+		me.editWin.init();
+		me.viewWin.init();
 		me.datagrid.init();
+
 	};
 	this.init();
 }
