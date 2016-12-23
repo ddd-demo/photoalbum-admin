@@ -1,8 +1,8 @@
 /target/
-#.classpath
-#.project
-#.settings
-
+.classpath
+.project
+.settings
+ 
 # IDE support files
 #/.classpath
 #/.launch
