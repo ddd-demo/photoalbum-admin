@@ -18,32 +18,10 @@
 <body class="easyui-layout" data-options="border:false">
 	<!-- footer:'#userFt', -->
 	<table id="datagridId"></table>
-	<div id="toolbarId">
-		<table cellspacing="0" cellpadding="0">
-			<tr>
-				<td><a id="showInputWinBut" href="#" class="easyui-linkbutton"
-					iconCls="icon-add" plain="true">增加</a></td>
-				<td>
-					<div class="datagrid-btn-separator"></div>
-				</td>
-				<td><a id="showEditWinBut" href="#" class="easyui-linkbutton"
-					iconCls="icon-edit" plain="true"
-					onclick="albumService.showEidtWin()">编辑</a></td>
-				<td>
-					<div class="datagrid-btn-separator"></div>
-				</td>
-				<td><a id="showViewWinBut" href="#" class="easyui-linkbutton"
-					iconCls="icon-save" plain="true" onclick="albumService.doSave()">详情</a></td>
-				<td>
-					<div class="datagrid-btn-separator"></div>
-				</td>
-				<td><a id="deleteBut" href="#" class="easyui-linkbutton"
-					iconCls="icon-remove" plain="true"
-					onclick="albumService.doDelete()">删除</a></td>
-			</tr>
-		</table>
+	<!-- 查询form -->
+	<div id="find-div">
 		<div class="datagrid-toolbar"></div>
-		<div id="search_div" style="padding: 2px 5px;">
+		<div style="padding: 2px 5px;">
 			<form id="findForm">
 				<table cellspacing="0" cellpadding="0">
 					<tr>
@@ -52,13 +30,12 @@
 						<td>至: <input name="endDate" class="easyui-datebox"
 							style="width: 110px"></td>
 						<td><a href="#" class="easyui-linkbutton"
-							iconCls="icon-search">查询</a></td>
+							iconCls="icon-search" onclick="show1() ">查询</a></td>
 					</tr>
 				</table>
 			</form>
 		</div>
 	</div>
-
 	<!-- input form page -->
 	<div id="inputWinId" class="easyui-dialog" title="录入相册信息"
 		style="width: 400px; hight: 500px; padding: 10px">

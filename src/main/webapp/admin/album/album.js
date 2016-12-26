@@ -95,7 +95,7 @@ function AlbumView() {
 	this.datagrid = {
 		keyName : "id",
 		datagridId : "#datagridId",
-		toolbarId : "#toolbarId",
+		finddivId : "#find-div",
 		init : function() {
 			// 定义冻结列
 			var frozenColumns = [ [ {
@@ -121,20 +121,13 @@ function AlbumView() {
 			} ] ];
 
 			var mydg = this;
-			// 工具条单击事件
-			$("#showInputWinBut").on("click", function() {
-				$(me.inputWin.inputWinId).dialog({
-					// left : 0,
-					// top : 0,
-					closed : false,
-					cache : false,
-					// href: 'input_user.html',
-					modal : false
-				});
-			});
-			$("#showEditWinBut").on("click", function() {
-				var handler = function(data) {
-					$(me.editWin.editWinId).dialog({
+
+			var toolbar = [ {
+				id : 'btnAdd',
+				text : '新增',
+				iconCls : 'icon-add',
+				handler : function() {
+					$(me.inputWin.inputWinId).dialog({
 						// left : 0,
 						// top : 0,
 						closed : false,
@@ -142,45 +135,77 @@ function AlbumView() {
 						// href: 'input_user.html',
 						modal : false
 					});
-					$(me.editWin.editFormId).form("load", data);
 				}
-				me.service.doEdit({
-					keyName : me.datagrid.keyName,
-					datagridId : me.datagrid.datagridId,
-					handler : handler
-				});
-			});
-			$("#showViewWinBut").on("click", function() {
-				var handler = function(data) {
-					var eidtwin = $(me.viewWin.viewWinId).dialog({
-						// left : 0,
-						// top : 0,
-						closed : false,
-						cache : false,
-						// href: 'input_user.html',
-						modal : false
-					});
-					var selEx = me.viewWin.viewFormId + " label"
-					var labels = $(selEx);
-					labels.each(function() {
-						var val = data[$(this).attr("name")];
-						if (val != null) {
-							$(this).text(val);
-						}
+			}, '-',{
+				id : 'btnUpdate',
+				text : '编辑',
+				iconCls : 'icon-edit',
+				handler : function() {
+					var handler = function(data) {
+						$(me.editWin.editWinId).dialog({
+							// left : 0,
+							// top : 0,
+							closed : false,
+							cache : false,
+							// href: 'input_user.html',
+							modal : false
+						});
+						$(me.editWin.editFormId).form("load", data);
+					}
+					me.service.doEdit({
+						keyName : me.datagrid.keyName,
+						datagridId : me.datagrid.datagridId,
+						handler : handler
 					});
 				}
-				me.service.doView({
-					keyName : me.datagrid.keyName,
-					datagridId : me.datagrid.datagridId,
-					handler : handler
-				});
-			});
-			$("#deleteBut").on("click", function() {
-				me.service.doDelete({
-					keyName : me.datagrid.keyName,
-					datagridId : me.datagrid.datagridId
-				});
-			});
+			},'-', {
+				id : 'btnDelete',
+				text : '删除',
+				iconCls : 'icon-remove',
+				handler : function() {
+					me.service.doDelete({
+						keyName : me.datagrid.keyName,
+						datagridId : me.datagrid.datagridId
+					});
+				}
+			},'-', {
+				id : 'btnView',
+				text : '详细',
+				iconCls : 'icon-redo',
+				handler : function() {
+					var handler = function(data) {
+						var eidtwin = $(me.viewWin.viewWinId).dialog({
+							// left : 0,
+							// top : 0,
+							closed : false,
+							cache : false,
+							// href: 'input_user.html',
+							modal : false
+						});
+						var selEx = me.viewWin.viewFormId + " label";
+						var labels = $(selEx);
+						labels.each(function() {
+							var val = data[$(this).attr("name")];
+							if (val != null) {
+								$(this).text(val);
+							}
+						});
+					}
+					me.service.doView({
+						keyName : me.datagrid.keyName,
+						datagridId : me.datagrid.datagridId,
+						handler : handler
+					});
+				}
+			},'-', {
+				id : 'btnRefresh',
+				text : '刷新',
+				iconCls : 'icon-reload',
+				handler : function() {
+
+				}
+			}];
+
 			// 创建grid
 			$(mydg.datagridId).datagrid({
 				// url : url,
@@ -195,11 +220,15 @@ function AlbumView() {
 				// method:'get',
 				// singleSelect : true,
 				// toolbar : toolbar1,
-				toolbar : mydg.toolbarId,
+				toolbar : toolbar,
 				idField : mydg.keyName,
 				frozenColumns : frozenColumns,
 				columns : columns
 			});
+			// 添加查询div
+			// mydg.datagridId+',
+			// $("#find-div").prependTo('#datagridId,.datagrid-toolbar');
+			$("#find-div").appendTo(".datagrid-toolbar");
 		}
 	}
 	this.init = function() {
@@ -207,7 +236,6 @@ function AlbumView() {
 		me.editWin.init();
 		me.viewWin.init();
 		me.datagrid.init();
-
 	};
 	this.init();
 }
@@ -230,11 +258,16 @@ $(function() {
 		controller : albumController
 	});
 	view1.service = albumService;
-	albumService.doFind(view1.datagrid.datagridId);
+	var url = albumService.controller.getUrl("findUri");
+	alert(url);
+	albumService.doFind({
+		url : url,
+		datagridId : view1.datagrid.datagridId,
+		params : {}
+	});
 
 	// TIP: 配合body解决页面跳动和闪烁问题
 	$("body").css({
 		visibility : "visible"
 	});
-
 });

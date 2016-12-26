@@ -182,11 +182,16 @@ function BaseService(config) {
 		}
 
 	};
-	this.doFind = function(datagridId) {
-		var url = me.controller.getUrl("findUri");
-		$(datagridId).datagrid({
-			url : url
-		})
+	this.doFind = function(config) {
+		// alert(config.url);
+		// $(config.datagridId).datagrid({
+		// url : config.url,
+		// queryParams : {}
+		// });
+		alert(1);
+		$(config.datagridId).datagrid("load", config.url);
+		// $(config.datagridId).load(config.url)
+
 	};
 
 }
