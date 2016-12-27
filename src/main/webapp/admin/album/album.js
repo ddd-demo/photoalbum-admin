@@ -228,6 +228,7 @@ function AlbumView() {
 			// 添加查询div
 			// mydg.datagridId+',
 			// $("#find-div").prependTo('#datagridId,.datagrid-toolbar');
+			
 			$("#find-div").appendTo(".datagrid-toolbar");
 		}
 	}
