@@ -2,7 +2,11 @@
 .classpath
 .project
 .settings
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> refs/remotes/origin/master
 # IDE support files
 #/.classpath
 #/.launch

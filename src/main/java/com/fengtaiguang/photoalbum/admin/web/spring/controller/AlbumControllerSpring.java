@@ -30,14 +30,11 @@ public class AlbumControllerSpring extends BaseControllerSpring {
 	public static String ALBUM_find_URL = ALBUM_BAST_URL + "find";
 
 	public AlbumControllerSpring() {
-		// logger.debug("........AlbumControllerSpring");
-		System.out.println(".........");
+		logger.debug("............AlbumControllerSpring");
 	}
 
 	@RequestMapping("main")
 	public String main() {
-		// logger.debug("........album.main");
-		// /views/user/user_input.jsp
 		return "album/album";
 	}
 
@@ -45,7 +42,6 @@ public class AlbumControllerSpring extends BaseControllerSpring {
 	@ResponseBody
 	public IQueryAndResult find(AlbumDto album) throws Exception {
 		QueryAndResult queryAndResult = new QueryAndResult();
-		System.out.println("........list album:" + album);
 		String jsonString = post(ALBUM_find_URL, "{}");
 		CollectionType listType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, AlbumDto.class);
 		List<AlbumDto> list;
@@ -60,18 +56,14 @@ public class AlbumControllerSpring extends BaseControllerSpring {
 	@RequestMapping("save")
 	@ResponseBody
 	public Boolean save(AlbumDto album) throws Exception {
-		System.out.println("........save:album" + album);
 		String jsonString = mapper.writeValueAsString(album);
-		System.out.println("......jsonString=" + jsonString);
 		post(ALBUM_SAVE_URL, jsonString);
-
 		return true;
 	}
 
 	@RequestMapping("edit/{id}")
 	@ResponseBody
 	public AlbumDto edit(@PathVariable String id) throws Exception {
-		System.out.println("........edit:" + id);
 		AlbumDto album = view(id);
 		return album;
 	}
@@ -79,7 +71,6 @@ public class AlbumControllerSpring extends BaseControllerSpring {
 	@RequestMapping("view/{id}")
 	@ResponseBody
 	public AlbumDto view(@PathVariable String id) throws Exception {
-		System.out.println("........view:" + id);
 		String content = post(ALBUM_GET_URL + "/" + id, "{}");
 		AlbumDto album = null;
 		if (!StringUtils.isBlank(content)) {
@@ -92,7 +83,6 @@ public class AlbumControllerSpring extends BaseControllerSpring {
 	@RequestMapping("update")
 	@ResponseBody
 	public Boolean update(AlbumDto album) throws Exception {
-		System.out.println("........update:" + album);
 		post(ALBUM_UPDATE_URL, mapper.writeValueAsString(album));
 		return true;
 	}
@@ -101,8 +91,6 @@ public class AlbumControllerSpring extends BaseControllerSpring {
 	@ResponseBody
 	public Boolean delete(@PathVariable String id) throws Exception {
 		String url = ALBUM_DELETE_URL + "/" + id;
-		System.out.println("........delete: url=" + url);
-
 		post(url, "{}");
 		return true;
 	}
