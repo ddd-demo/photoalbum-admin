@@ -188,7 +188,6 @@ function BaseService(config) {
 		// url : config.url,
 		// queryParams : {}
 		// });
-		alert(1);
 		$(config.datagridId).datagrid("load", config.url);
 		// $(config.datagridId).load(config.url)
 

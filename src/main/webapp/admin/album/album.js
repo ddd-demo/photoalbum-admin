@@ -2,13 +2,35 @@
  * 原始JS封装MVC
  */
 // //////视图层///////////////////////////////////////////////////
-function AlbumView() {
+//
+function InputWin() {
+
+}
+//
+// this.inputDialogId = "#inputWinId";
+// this.inputFormId = "#inputFormId";
+// editWinId : "#editWinId",
+// editFormId : "#editFormId",
+// viewWinId : "#viewWinId",
+// viewFormId : "#viewFormId",
+
+function AlbumView(container, config) {
 	var me = this;
+	this.container = container;
+
 	this.service = {};
-	// 输入窗口
+	// 默认ID设置
+	this.inputDialogId = "#inputWinId";
+	this.inputFormId = "#inputFormId";
+	this.editWinId = "#editWinId";
+	this.editFormId = "#editFormId";
+	this.viewWinId = "#viewWinId";
+	this.viewFormId = "#viewFormId";
+	$.extend(this, config);
+	// 输入窗口对象
 	this.inputWin = {
-		inputWinId : "#inputWinId",
-		inputFormId : "#inputFormId",
+		inputDialog : {},
+		inputForm : {},
 		init : function() {
 			var winConfig = {
 				closed : true,
@@ -17,7 +39,7 @@ function AlbumView() {
 					text : '新增',
 					iconCls : 'icon-add',
 					handler : function() {
-						$(me.inputWin.inputFormId).form('clear');
+						me.inputWin.inputForm.form('clear');
 					}
 				}, '-', {
 					text : '保存',
@@ -44,9 +66,12 @@ function AlbumView() {
 					}
 				} ]
 			};
-			$(this.inputWinId).dialog(winConfig);
+			this.inputDialog = me.container.children(me.inputDialogId);
+			this.inputForm = me.container.children(me.inputFormId);
+			inputDialog.dialog(winConfig);
 		}
 	};
+
 	// 编辑窗口
 	this.editWin = {
 		editWinId : "#editWinId",
@@ -136,7 +161,7 @@ function AlbumView() {
 						modal : false
 					});
 				}
-			}, '-',{
+			}, '-', {
 				id : 'btnUpdate',
 				text : '编辑',
 				iconCls : 'icon-edit',
@@ -158,7 +183,7 @@ function AlbumView() {
 						handler : handler
 					});
 				}
-			},'-', {
+			}, '-', {
 				id : 'btnDelete',
 				text : '删除',
 				iconCls : 'icon-remove',
@@ -168,7 +193,7 @@ function AlbumView() {
 						datagridId : me.datagrid.datagridId
 					});
 				}
-			},'-', {
+			}, '-', {
 				id : 'btnView',
 				text : '详细',
 				iconCls : 'icon-redo',
@@ -197,14 +222,14 @@ function AlbumView() {
 						handler : handler
 					});
 				}
-			},'-', {
+			}, '-', {
 				id : 'btnRefresh',
 				text : '刷新',
 				iconCls : 'icon-reload',
 				handler : function() {
 
 				}
-			}];
+			} ];
 
 			// 创建grid
 			$(mydg.datagridId).datagrid({
@@ -228,7 +253,7 @@ function AlbumView() {
 			// 添加查询div
 			// mydg.datagridId+',
 			// $("#find-div").prependTo('#datagridId,.datagrid-toolbar');
-			
+
 			$("#find-div").appendTo(".datagrid-toolbar");
 		}
 	}
@@ -260,7 +285,6 @@ $(function() {
 	});
 	view1.service = albumService;
 	var url = albumService.controller.getUrl("findUri");
-	alert(url);
 	albumService.doFind({
 		url : url,
 		datagridId : view1.datagrid.datagridId,

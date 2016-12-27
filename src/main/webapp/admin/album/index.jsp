@@ -6,43 +6,23 @@
 <head>
 <meta charset="UTF-8">
 <title>user</title>
-<jsp:include page="../commons/jsp/header_easyui.jsp" />
-
+<script type="text/javascript"
+	src="/photoalbum-admin/admin/commons/easyui1.5/jquery.min.js"></script>
 
 <script type="text/javascript">
-	$(function() {
-		var tbs = [ {
-			id : 'btnRefresh',
-			text : '刷新',
-			iconCls : 'icon-reload',
-			handler : function() {
-
-			}
-		} ];
-		$("#datagridId").datagrid({toolbar:tbs});
-		$("#find-div").appendTo(".datagrid-toolbar");
-	})
+	function test1(divt) {
+		alert($(divt).children("#div1").text());
+		alert($(divt).children("#div2").text());
+	}
 </script>
 </head>
 
-<body class="easyui-layout" data-options="border:false">
-	<!-- footer:'#userFt', -->
-	<table id="datagridId"></table>
-	<!-- 查询form -->
-	<div id="find-div" style="padding: 2px 5px;">
-		<form id="findForm">
-			<table cellspacing="0" cellpadding="0">
-				<tr>
-					<td>日期: <input name="beginDate" class="easyui-datebox"
-						style="width: 110px"></td>
-					<td>至: <input name="endDate" class="easyui-datebox"
-						style="width: 110px"></td>
-					<td><a href="#" class="easyui-linkbutton"
-						iconCls="icon-search">查询</a></td>
-				</tr>
-			</table>
-		</form>
+<body>
+	<div onclick="test1(this)">
+		<div id="div1">1111</div>
+		
+		<div id="div2"></div>
 	</div>
-
+	
 </body>
 </html>
