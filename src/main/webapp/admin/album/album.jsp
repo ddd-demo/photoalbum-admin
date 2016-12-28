@@ -12,38 +12,18 @@
 <!-- 本模块的脚本文件 -->
 <script type="text/javascript" src="${webBase}album.js"></script>
 <script type="text/javascript">
-	var idList = {
-		inputDialogId : "#${inputDialogId}",
-		inputFormId : "#${inputFormId}",
-		editWinId : "#${editWinId}",
-		editFormId : "#${editFormId}",
-		viewWinId : "#${viewWinId}",
-		viewFormId : "#${viewFormId}",
-		datagridId : "#${datagridId}",
-		findDivId : "#${findDivId}",
-		findFormId : "#${findFormId}",
-		keyName : "id"
-	};
-	var albumController = {
-		saveUri : "${saveUri}",
-		editUri : "${editUri}",
-		deleteUri : "${deleteUri}",
-		updateUri : "${updateUri}",
-		viewUri : "${viewUri}",
-		findUri : "${findUri}",
-		getUrl : function(urlName) {
-			return WebCommon.getWebPath(this[urlName]);
-		}
-	};
+	$(function() {
+		new AlbumView(${VIEW_JSON}).find();
+	});
 </script>
 </head>
 
 <body class="easyui-layout" data-options="border:false">
-	<table id="${datagridId}"></table>
+	<table id="${DATAGRID_ID_H}"></table>
 	<!--find form -->
-	<div id="${findDivId}">
+	<div id="${FIND_DIALOG_ID_H}">
 		<div style="padding: 2px 5px;">
-			<form id="${findFormId}">
+			<form id="${FIND_FORM_ID_H}">
 				<table cellspacing="0" cellpadding="0">
 					<tr>
 						<td>日期: <input name="beginDate" class="easyui-datebox"
@@ -58,9 +38,9 @@
 		</div>
 	</div>
 	<!-- input dialog -->
-	<div id="${inputDialogId}" class="easyui-dialog" title="录入相册信息"
+	<div id="${INPUT_DIALOG_ID_H}" class="easyui-dialog" title="录入相册信息"
 		style="width: 400px; hight: 500px; padding: 10px">
-		<form id="inputFormId">
+		<form id="${INPUT_FORM_ID_H}">
 			<input name="id" type="hidden">
 			<div style="margin-bottom: 20px">
 				<input class="easyui-textbox" name="name" style="width: 90%"
@@ -78,10 +58,9 @@
 		</form>
 	</div>
 	<!-- edit dialog -->
-	<div id="${editWinId}" class="easyui-dialog" title="编辑相册信息"
-		style="width: 400px; hight: 500px; padding: 10px"
-		data-options="closed:true">
-		<form id="${editFormId}">
+	<div id="${EDIT_DIALOG_ID_H}" class="easyui-dialog" title="编辑相册信息"
+		style="width: 400px; hight: 500px; padding: 10px">
+		<form id="${EDIT_FORM_ID_H}">
 			<input name="id" type="hidden">
 			<div style="margin-bottom: 20px">
 				<input class="easyui-textbox" name="name" style="width: 90%"
@@ -99,10 +78,9 @@
 		</form>
 	</div>
 	<!-- view dialog -->
-	<div id="${viewWinId}" class="easyui-dialog" title="相册信息"
-		style="width: 400px; hight: 500px; padding: 10px"
-		data-options="closed:true">
-		<form id="viewFormId">
+	<div id="${VIEW_DIALOG_ID_H}" class="easyui-dialog" title="相册信息"
+		style="width: 400px; hight: 500px; padding: 10px">
+		<form id="${VIEW_FORM_ID_H }">
 			<table>
 				<tr>
 					<td>相册名称</td>

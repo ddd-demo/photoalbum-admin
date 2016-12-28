@@ -1,5 +1,5 @@
 function generateUUID(name) {
-	
+
 	var d = new Date().getTime();
 	var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
 			function(c) {
@@ -7,8 +7,8 @@ function generateUUID(name) {
 				d = Math.floor(d / 16);
 				return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
 			});
-	if(name){
-		uuid=name+uuid;
+	if (name) {
+		uuid = name + uuid;
 	}
 	return uuid;
 };
@@ -82,8 +82,8 @@ function BaseService(config) {
 	// ============函数==============================
 	this.doSave = function(config) {
 		var handler = new CUDHandler(me.moduleName + "增加", config.datagridId);
-		var url = me.controller.getUrl("saveUri");
-		var data = $(config.saveFormId).serialize();
+		var url = me.controller.getUrl("SAVE_URI");
+		var data = $(config.inputFormId).serialize();
 		$.ajax({
 			url : url,
 			type : "post",
@@ -100,8 +100,8 @@ function BaseService(config) {
 	};
 	this.doUpdate = function(config) {
 		var handler = new CUDHandler(this.moduleName + "修改", config.datagridId);
-		var url = me.controller.getUrl("updateUri");
-		var data = $(config.saveFormId).serialize();
+		var url = me.controller.getUrl("UPDATE_URI");
+		var data = $(config.editFormId).serialize();
 		$.ajax({
 			url : url,
 			type : "post",
@@ -122,12 +122,12 @@ function BaseService(config) {
 		if (row) {
 			$.messager.confirm('删除提示', '你确认删除选中的记录吗?', function(r) {
 				if (r) {
-					var keyValue = row[config.keyName];
+					var keyValue = row[config.primaryKey];
 					if (!keyValue) {
 						$.messager.alert('删除提示', '没有唯一标示的ID，请检查唯一标示的字段名称!',
 								'warning');
 					}
-					var url = me.controller.getUrl("deleteUri") + "/"
+					var url = me.controller.getUrl("DELETE_URI") + "/"
 							+ keyValue
 					$.ajax({
 						url : url,
@@ -135,6 +135,9 @@ function BaseService(config) {
 						dataType : "json",
 						success : function(data) {
 							if (data == true) {
+								var rowIndex = $(config.datagridId).datagrid('getRowIndex',
+										row);
+								$(config.datagridId).datagrid('deleteRow', rowIndex);
 								$(config.datagridId).datagrid('reload');
 							} else {
 								$.messager.alert('系统提示:', "删除失败", 'error');
@@ -156,8 +159,8 @@ function BaseService(config) {
 	this.doEdit = function(config) {
 		var row = $(config.datagridId).datagrid('getSelected');
 		if (row) {
-			var keyValue = row[config.keyName];
-			var url = me.controller.getUrl("editUri") + "/" + keyValue
+			var keyValue = row[config.primaryKey];
+			var url = me.controller.getUrl("EDIT_URI") + "/" + keyValue
 			$.ajax({
 				url : url,
 				type : "get",
@@ -178,8 +181,8 @@ function BaseService(config) {
 	this.doView = function(config) {
 		var row = $(config.datagridId).datagrid('getSelected');
 		if (row) {
-			var keyValue = row[config.keyName];
-			var url = me.controller.getUrl("viewUri") + "/" + keyValue
+			var keyValue = row[config.primaryKey];
+			var url = me.controller.getUrl("VIEW_URI") + "/" + keyValue
 			$.ajax({
 				url : url,
 				type : "get",
@@ -203,9 +206,7 @@ function BaseService(config) {
 		// url : config.url,
 		// queryParams : {}
 		// });
-		config.datagrid.datagrid("load", config.url);
-		// $(config.datagridId).load(config.url)
-
+		$(config.datagridId).datagrid("load", config.url);
 	};
 
 }

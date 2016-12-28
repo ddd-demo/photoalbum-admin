@@ -12,7 +12,7 @@
 		base-package="com.fengtaiguang.photoalbum.admin.web.spring" />
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/admin/" />
+		<property name="prefix" value="/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 
