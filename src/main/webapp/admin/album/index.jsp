@@ -10,19 +10,25 @@
 	src="/photoalbum-admin/admin/commons/easyui1.5/jquery.min.js"></script>
 
 <script type="text/javascript">
-	function test1(divt) {
-		alert($(divt).children("#div1").text());
-		alert($(divt).children("#div2").text());
+	$(function() {
+		$("#myinput").attr("name","password");
+		$("#myinput").attr("id","id111");
+		$("#111").attr("id","d111");
+		//alert($("#diva #p1").text());
+	});
+	function test1() {
+		alert($("input[name='userName']").val());
+		//$("div").first().css("color", "red")
 	}
 </script>
 </head>
 
 <body>
-	<div onclick="test1(this)">
-		<div id="div1">1111</div>
-		
-		<div id="div2"></div>
+
+	<input id="myinput" name="userName">
+	<button onclick="test1()">test</button>
+	<div id="111">
+	22
 	</div>
-	
 </body>
 </html>

@@ -1,3 +1,18 @@
+function generateUUID(name) {
+	
+	var d = new Date().getTime();
+	var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
+			function(c) {
+				var r = (d + Math.random() * 16) % 16 | 0;
+				d = Math.floor(d / 16);
+				return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+			});
+	if(name){
+		uuid=name+uuid;
+	}
+	return uuid;
+};
+
 $(function() {
 	$("#sysTree").tree({
 		url : "commons/data/sys_tree_data.json",
@@ -188,7 +203,7 @@ function BaseService(config) {
 		// url : config.url,
 		// queryParams : {}
 		// });
-		$(config.datagridId).datagrid("load", config.url);
+		config.datagrid.datagrid("load", config.url);
 		// $(config.datagridId).load(config.url)
 
 	};

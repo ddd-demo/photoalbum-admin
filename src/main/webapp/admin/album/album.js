@@ -1,36 +1,14 @@
 /**
  * 原始JS封装MVC
  */
-// //////视图层///////////////////////////////////////////////////
-//
-function InputWin() {
-
-}
-//
-// this.inputDialogId = "#inputWinId";
-// this.inputFormId = "#inputFormId";
-// editWinId : "#editWinId",
-// editFormId : "#editFormId",
-// viewWinId : "#viewWinId",
-// viewFormId : "#viewFormId",
-
-function AlbumView(container, config) {
-	var me = this;
-	this.container = container;
-
+// //////视图层///////////////////////////////////////
+function AlbumView(config) {
 	this.service = {};
 	// 默认ID设置
-	this.inputDialogId = "#inputWinId";
-	this.inputFormId = "#inputFormId";
-	this.editWinId = "#editWinId";
-	this.editFormId = "#editFormId";
-	this.viewWinId = "#viewWinId";
-	this.viewFormId = "#viewFormId";
-	$.extend(this, config);
+	$.extend(this, config); // 输入窗口对象
+	var me = this;
 	// 输入窗口对象
 	this.inputWin = {
-		inputDialog : {},
-		inputForm : {},
 		init : function() {
 			var winConfig = {
 				closed : true,
@@ -39,15 +17,15 @@ function AlbumView(container, config) {
 					text : '新增',
 					iconCls : 'icon-add',
 					handler : function() {
-						me.inputWin.inputForm.form('clear');
+						$(me.inputFormId).form('clear');
 					}
 				}, '-', {
 					text : '保存',
 					iconCls : 'icon-save',
 					handler : function() {
 						me.service.doSave({
-							saveFormId : me.inputWin.saveFormId,
-							datagridId : me.datagrid.datagridId
+							saveFormId : me.saveFormId,
+							datagridId : me.datagridId
 						});
 					}
 				} ],
@@ -55,27 +33,25 @@ function AlbumView(container, config) {
 					text : '保存',
 					handler : function() {
 						me.service.doSave({
-							saveFormId : me.inputWin.inputFormId,
-							datagridId : me.datagrid.datagridId
+							saveFormId : me.inputFormId,
+							datagridId : me.datagridId
 						});
 					}
 				}, {
 					text : '关闭',
 					handler : function() {
-						$(me.inputWin.inputWinId).dialog('close');
+						var win=$(me.inputDialogId);
+						alert(win);
+						$(me.inputDialogId).dialog('close');
 					}
 				} ]
 			};
-			this.inputDialog = me.container.children(me.inputDialogId);
-			this.inputForm = me.container.children(me.inputFormId);
-			inputDialog.dialog(winConfig);
+			$(me.inputDialogId).dialog(winConfig);
 		}
 	};
 
 	// 编辑窗口
 	this.editWin = {
-		editWinId : "#editWinId",
-		editFormId : "#editFormId",
 		init : function() {
 			var winConfig = {
 				closed : true,
@@ -84,24 +60,22 @@ function AlbumView(container, config) {
 					text : '保存',
 					handler : function() {
 						me.service.doUpdate({
-							saveFormId : me.editWin.editFormId,
-							datagridId : me.datagrid.datagridId
+							saveFormId : me.editFormId,
+							datagridId : me.datagridId
 						});
 					}
 				}, {
 					text : '关闭',
 					handler : function() {
-						$(me.editWin.editWinId).dialog('close');
+						$(me.editWinId).dialog('close');
 					}
 				} ]
 			};
-			$(this.editWinId).dialog(winConfig);
+			$(me.editWinId).dialog(winConfig);
 		}
 	};
 	// 信息窗口
 	this.viewWin = {
-		viewWinId : "#viewWinId",
-		viewFormId : "#viewFormId",
 		init : function() {
 			var winConfig = {
 				closed : true,
@@ -109,18 +83,15 @@ function AlbumView(container, config) {
 				buttons : [ {
 					text : '关闭',
 					handler : function() {
-						$(me.viewWin.viewWinId).dialog('close');
+						$(me.viewWinId).dialog('close');
 					}
 				} ]
 			};
-			$(me.viewWin.viewWinId).dialog(winConfig);
+			$(me.viewWinId).dialog(winConfig);
 		}
 	};
 	// ///////////////////////
 	this.datagrid = {
-		keyName : "id",
-		datagridId : "#datagridId",
-		finddivId : "#find-div",
 		init : function() {
 			// 定义冻结列
 			var frozenColumns = [ [ {
@@ -152,7 +123,8 @@ function AlbumView(container, config) {
 				text : '新增',
 				iconCls : 'icon-add',
 				handler : function() {
-					$(me.inputWin.inputWinId).dialog({
+					alert($("#inputDialogId"));
+					$(me.inputDialogId).dialog({
 						// left : 0,
 						// top : 0,
 						closed : false,
@@ -167,7 +139,7 @@ function AlbumView(container, config) {
 				iconCls : 'icon-edit',
 				handler : function() {
 					var handler = function(data) {
-						$(me.editWin.editWinId).dialog({
+						$(me.editWinId).dialog({
 							// left : 0,
 							// top : 0,
 							closed : false,
@@ -175,11 +147,11 @@ function AlbumView(container, config) {
 							// href: 'input_user.html',
 							modal : false
 						});
-						$(me.editWin.editFormId).form("load", data);
+						$(me.editFormId).form("load", data);
 					}
 					me.service.doEdit({
-						keyName : me.datagrid.keyName,
-						datagridId : me.datagrid.datagridId,
+						keyName : me.keyName,
+						datagridId : me.datagridId,
 						handler : handler
 					});
 				}
@@ -189,8 +161,8 @@ function AlbumView(container, config) {
 				iconCls : 'icon-remove',
 				handler : function() {
 					me.service.doDelete({
-						keyName : me.datagrid.keyName,
-						datagridId : me.datagrid.datagridId
+						keyName : me.keyName,
+						datagridId : me.datagridId
 					});
 				}
 			}, '-', {
@@ -199,7 +171,7 @@ function AlbumView(container, config) {
 				iconCls : 'icon-redo',
 				handler : function() {
 					var handler = function(data) {
-						var eidtwin = $(me.viewWin.viewWinId).dialog({
+						var eidtwin = $(me.viewWinId).dialog({
 							// left : 0,
 							// top : 0,
 							closed : false,
@@ -207,7 +179,7 @@ function AlbumView(container, config) {
 							// href: 'input_user.html',
 							modal : false
 						});
-						var selEx = me.viewWin.viewFormId + " label";
+						var selEx = me.viewFormId + " label";
 						var labels = $(selEx);
 						labels.each(function() {
 							var val = data[$(this).attr("name")];
@@ -217,8 +189,8 @@ function AlbumView(container, config) {
 						});
 					}
 					me.service.doView({
-						keyName : me.datagrid.keyName,
-						datagridId : me.datagrid.datagridId,
+						keyName : me.keyName,
+						datagridId : me.datagridId,
 						handler : handler
 					});
 				}
@@ -232,7 +204,7 @@ function AlbumView(container, config) {
 			} ];
 
 			// 创建grid
-			$(mydg.datagridId).datagrid({
+			$(me.datagridId).datagrid({
 				// url : url,
 				iconCls : 'icon-forward',
 				fit : true,
@@ -246,7 +218,7 @@ function AlbumView(container, config) {
 				// singleSelect : true,
 				// toolbar : toolbar1,
 				toolbar : toolbar,
-				idField : mydg.keyName,
+				idField : me.keyName,
 				frozenColumns : frozenColumns,
 				columns : columns
 			});
@@ -254,7 +226,7 @@ function AlbumView(container, config) {
 			// mydg.datagridId+',
 			// $("#find-div").prependTo('#datagridId,.datagrid-toolbar');
 
-			$("#find-div").appendTo(".datagrid-toolbar");
+			$(me.findDivId).appendTo(".datagrid-toolbar");
 		}
 	}
 	this.init = function() {
@@ -266,31 +238,16 @@ function AlbumView(container, config) {
 	this.init();
 }
 
-var albumController = {
-	saveUri : "album/save",
-	editUri : "album/edit",
-	deleteUri : "album/delete",
-	updateUri : "album/update",
-	viewUri : "album/view",
-	findUri : "album/find",
-	getUrl : function(urlName) {
-		return WebCommon.getWebPath(this[urlName]);
-	}
-};
+
 $(function() {
-	var view1 = new AlbumView();
+	var view = new AlbumView(idList);
 	var albumService = new BaseService({
 		moduleName : "相册",
 		controller : albumController
 	});
-	view1.service = albumService;
+	view.service = albumService;
 	var url = albumService.controller.getUrl("findUri");
-	albumService.doFind({
-		url : url,
-		datagridId : view1.datagrid.datagridId,
-		params : {}
-	});
-
+	$(view.datagridId).datagrid("load", url);
 	// TIP: 配合body解决页面跳动和闪烁问题
 	$("body").css({
 		visibility : "visible"

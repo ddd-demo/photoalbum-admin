@@ -2,6 +2,7 @@ package com.fengtaiguang.photoalbum.admin.web.spring.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -34,7 +35,9 @@ public class AlbumControllerSpring extends BaseControllerSpring {
 	}
 
 	@RequestMapping("main")
-	public String main() {
+	public String main(Map model) {
+		AlbumViewConfig albumViewConfig=new AlbumViewConfig();
+		model.putAll(albumViewConfig.initView());
 		return "album/album";
 	}
 
