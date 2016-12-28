@@ -48,7 +48,7 @@ public class AlbumControllerSpring extends BaseControllerSpring {
 	public String main(Map model) throws Exception {
 		model.putAll(viewUriMap(MODULE_URI));
 		model.putAll(viewIdMap());
-		model.put("PRIMARY_KEY", "id");
+		
 		model.put("VIEW_JSON", mapper.writeValueAsString(model));
 		return ALBUM_MAIN_VIEW;
 	}

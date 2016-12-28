@@ -5,11 +5,15 @@
 function AlbumView(config) {
 	this.service = new BaseService({
 		moduleName : "相册",
-		controller : config
 	});
 	// 默认ID设置
 	$.extend(this, config);
 	var me = this;
+	this.destroy=function(){
+		$(me.INPUT_DIALOG_ID).dialog('destroy');
+		$(me.EDIT_DIALOG_ID).dialog('destroy');
+		$(me.VIEW_DIALOG_ID).dialog('destroy');
+	}
 	this.getUrl = function(urlName) {
 		return WebCommon.getWebPath(this[urlName]);
 	}
@@ -21,12 +25,14 @@ function AlbumView(config) {
 	}
 	this.save = function() {
 		me.service.doSave({
+			url:me.getUrl("SAVE_URI"),
 			inputFormId : me.INPUT_FORM_ID,
 			datagridId : me.DATAGRID_ID
 		});
 	}
 	this.update = function() {
 		me.service.doUpdate({
+			url:me.getUrl("UPDATE_URI"),
 			editFormId : me.EDIT_FORM_ID,
 			datagridId : me.DATAGRID_ID
 		});
@@ -44,6 +50,7 @@ function AlbumView(config) {
 			$(me.EDIT_FORM_ID).form("load", data);
 		}
 		me.service.doEdit({
+			url:me.getUrl("EDIT_URI"),
 			primaryKey : me.PRIMARY_KEY,
 			datagridId : me.DATAGRID_ID,
 			handler : handler
@@ -51,6 +58,7 @@ function AlbumView(config) {
 	}
 	this.del = function() {
 		me.service.doDelete({
+			url:me.getUrl("DELETE_URI"),
 			primaryKey : me.PRIMARY_KEY,
 			datagridId : me.DATAGRID_ID
 		});
@@ -75,45 +83,13 @@ function AlbumView(config) {
 			});
 		}
 		me.service.doView({
+			url:me.getUrl("FIND_URI"),
 			primaryKey : me.PRIMARY_KEY,
 			datagridId : me.DATAGRID_ID,
 			handler : handler
 		});
 	}
-	// 输入窗口对象
-	this.inputWin = {
-		init : function() {
-			var winConfig = {
-				closed : true,
-				iconCls : 'icon-save',
-				toolbar : [ {
-					text : '新增',
-					iconCls : 'icon-add',
-					handler : function() {
-						$(me.INPUT_FORM_ID).form('clear');
-					}
-				}, '-', {
-					text : '保存',
-					iconCls : 'icon-save',
-					handler : function() {
-						me.save();
-					}
-				} ],
-				buttons : [ {
-					text : '保存',
-					handler : function() {
-						me.save();
-					}
-				}, {
-					text : '关闭',
-					handler : function() {
-						$(me.INPUT_DIALOG_ID).dialog('close');
-					}
-				} ]
-			};
-			$(me.INPUT_DIALOG_ID).dialog(winConfig);
-		}
-	};
+
 
 	// 编辑窗口
 	this.editWin = {
@@ -185,14 +161,46 @@ function AlbumView(config) {
 				text : '新增',
 				iconCls : 'icon-add',
 				handler : function() {
-					$(me.INPUT_DIALOG_ID).dialog({
-						// left : 0,
-						// top : 0,
-						closed : false,
-						cache : false,
-						// href: 'input_user.html',
-						modal : false
-					});
+					var winConfig = {
+							id:me.INPUT_DIALOG_ID_H,
+							title: '相册输入窗口',
+							width: 400,
+							height: 400,
+							closed : false,
+							href: 'album_input.jsp?INPUT_FORM_ID='+me.INPUT_FORM_ID_H,
+							iconCls : 'icon-save',
+							onLoad : function() {
+			                  // $(me.INPUT_DIALOG_ID+" form").attr("id",me.INPUT_FORM_ID_H);
+			                },
+			                onClose : function() {
+			                    $(this).dialog('destroy');
+			                },
+							toolbar : [ {
+								text : '新增',
+								iconCls : 'icon-add',
+								handler : function() {
+									$(me.INPUT_DIALOG_ID).form('clear');
+								}
+							}, '-', {
+								text : '保存',
+								iconCls : 'icon-save',
+								handler : function() {
+									me.save();
+								}
+							} ],
+							buttons : [ {
+								text : '保存',
+								handler : function() {
+									me.save();
+								}
+							}, {
+								text : '关闭',
+								handler : function() {
+									$(me.INPUT_DIALOG_ID).dialog('destroy');
+								}
+							} ]
+						};
+						$("<div><div>").dialog(winConfig);
 				}
 			}, '-', {
 				id : 'btnUpdate',
@@ -247,14 +255,14 @@ function AlbumView(config) {
 			// mydg.datagridId+',
 			// $("#find-div").prependTo('#datagridId,.datagrid-toolbar');
 
-			$(me.FIND_DIALOG_ID).appendTo(".datagrid-toolbar");
+			//$(me.FIND_DIALOG_ID).appendTo(".datagrid-toolbar");
 		}
 	}
 	// 初始化
 	this.init = function() {
-		me.inputWin.init();
-		me.editWin.init();
-		me.viewWin.init();
+		//me.inputWin.init();
+		//me.editWin.init();
+		//me.viewWin.init();
 		me.datagrid.init();
 	};
 	this.init();

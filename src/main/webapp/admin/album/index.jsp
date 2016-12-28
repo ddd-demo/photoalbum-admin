@@ -11,24 +11,22 @@
 
 <script type="text/javascript">
 	$(function() {
-		$("#myinput").attr("name","password");
-		$("#myinput").attr("id","id111");
-		$("#111").attr("id","d111");
-		//alert($("#diva #p1").text());
+	
 	});
-	function test1() {
-		alert($("input[name='userName']").val());
-		//$("div").first().css("color", "red")
+	function load1() {
+		$("#div1").load("main");
+	}
+	function load2() {
+		$("#div2").load("main");
 	}
 </script>
 </head>
 
 <body>
-
-	<input id="myinput" name="userName">
-	<button onclick="test1()">test</button>
-	<div id="111">
-	22
+	<div>
+		<button onclick="load1()">load dg1</button><button onclick="load2()">load dg2</button>
 	</div>
+	<div id="div1" style="height: 300px">11</div>
+	<div id="div2" style="height: 400px">22</div>
 </body>
 </html>

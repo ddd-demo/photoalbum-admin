@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +9,13 @@
 <!-- 本模块的脚本文件 -->
 <script type="text/javascript" src="${webBase}album.js"></script>
 <script type="text/javascript">
+	var ${VIEW_ID};
 	$(function() {
-		new AlbumView(${VIEW_JSON}).find();
+		${VIEW_ID}=new AlbumView(${VIEW_JSON})
+		${VIEW_ID}.find();
+		$(body).unload(function(){
+			${VIEW_ID}.destroy()
+		  });
 	});
 </script>
 </head>
@@ -37,65 +39,6 @@
 			</form>
 		</div>
 	</div>
-	<!-- input dialog -->
-	<div id="${INPUT_DIALOG_ID_H}" class="easyui-dialog" title="录入相册信息"
-		style="width: 400px; hight: 500px; padding: 10px">
-		<form id="${INPUT_FORM_ID_H}">
-			<input name="id" type="hidden">
-			<div style="margin-bottom: 20px">
-				<input class="easyui-textbox" name="name" style="width: 90%"
-					data-options="label:'相册名称:',required:true">
-			</div>
-			<div style="margin-bottom: 20px">
-				<input class="easyui-textbox" name=number style="width: 90%"
-					data-options="label:'相册排序:',required:true">
-			</div>
-			<div style="margin-bottom: 20px">
-				<input class="easyui-textbox" name="description"
-					style="width: 90%; height: 60px"
-					data-options="label:'相册描述:',multiline:true">
-			</div>
-		</form>
-	</div>
-	<!-- edit dialog -->
-	<div id="${EDIT_DIALOG_ID_H}" class="easyui-dialog" title="编辑相册信息"
-		style="width: 400px; hight: 500px; padding: 10px">
-		<form id="${EDIT_FORM_ID_H}">
-			<input name="id" type="hidden">
-			<div style="margin-bottom: 20px">
-				<input class="easyui-textbox" name="name" style="width: 90%"
-					data-options="label:'相册名称:',required:true">
-			</div>
-			<div style="margin-bottom: 20px">
-				<input class="easyui-textbox" name=number style="width: 90%"
-					data-options="label:'相册排序:',required:true">
-			</div>
-			<div style="margin-bottom: 20px">
-				<input class="easyui-textbox" name="description"
-					style="width: 90%; height: 60px"
-					data-options="label:'相册描述:',multiline:true">
-			</div>
-		</form>
-	</div>
-	<!-- view dialog -->
-	<div id="${VIEW_DIALOG_ID_H}" class="easyui-dialog" title="相册信息"
-		style="width: 400px; hight: 500px; padding: 10px">
-		<form id="${VIEW_FORM_ID_H }">
-			<table>
-				<tr>
-					<td>相册名称</td>
-					<td><label name="name"></label></td>
-				</tr>
-				<tr>
-					<td>相册排序:</td>
-					<td><label name="number"></label></td>
-				</tr>
-				<tr>
-					<td>相册描述</td>
-					<td><label name="description"></label></td>
-				</tr>
-			</table>
-		</form>
-	</div>
+	
 </body>
 </html>

@@ -75,14 +75,13 @@ CUDHandler.prototype.callback = function(isSuccess) {
 // ========================service============================
 function BaseService(config) {
 	var me = this;
-	this.controller = {};
 	if (config) {
 		$.extend(this, config);
 	}
 	// ============函数==============================
 	this.doSave = function(config) {
+		var url = config.url;
 		var handler = new CUDHandler(me.moduleName + "增加", config.datagridId);
-		var url = me.controller.getUrl("SAVE_URI");
 		var data = $(config.inputFormId).serialize();
 		$.ajax({
 			url : url,
@@ -99,8 +98,8 @@ function BaseService(config) {
 		});
 	};
 	this.doUpdate = function(config) {
+		var url = config.url;
 		var handler = new CUDHandler(this.moduleName + "修改", config.datagridId);
-		var url = me.controller.getUrl("UPDATE_URI");
 		var data = $(config.editFormId).serialize();
 		$.ajax({
 			url : url,
@@ -127,7 +126,8 @@ function BaseService(config) {
 						$.messager.alert('删除提示', '没有唯一标示的ID，请检查唯一标示的字段名称!',
 								'warning');
 					}
-					var url = me.controller.getUrl("DELETE_URI") + "/"
+					var url = config.url;
+					var url = url + "/"
 							+ keyValue
 					$.ajax({
 						url : url,
@@ -160,7 +160,8 @@ function BaseService(config) {
 		var row = $(config.datagridId).datagrid('getSelected');
 		if (row) {
 			var keyValue = row[config.primaryKey];
-			var url = me.controller.getUrl("EDIT_URI") + "/" + keyValue
+			var url = config.url;
+			var url =url + "/" + keyValue
 			$.ajax({
 				url : url,
 				type : "get",
@@ -182,7 +183,8 @@ function BaseService(config) {
 		var row = $(config.datagridId).datagrid('getSelected');
 		if (row) {
 			var keyValue = row[config.primaryKey];
-			var url = me.controller.getUrl("VIEW_URI") + "/" + keyValue
+			var url = config.url;
+			var url = url+ "/" + keyValue
 			$.ajax({
 				url : url,
 				type : "get",

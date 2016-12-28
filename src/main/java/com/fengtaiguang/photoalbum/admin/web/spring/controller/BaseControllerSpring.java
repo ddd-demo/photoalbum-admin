@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
@@ -43,6 +44,7 @@ public class BaseControllerSpring {
 
 	public Map<String, String> viewIdMap() {
 		Map<String, String> idsMap = new HashMap();
+		
 		idsMap.put("FIND_DIALOG_ID", UUID.randomUUID().toString());
 		idsMap.put("FIND_FORM_ID", UUID.randomUUID().toString());
 		idsMap.put("DATAGRID_ID", UUID.randomUUID().toString());
@@ -64,6 +66,8 @@ public class BaseControllerSpring {
 			idsMap.put(key,"#"+ idsMap.get(key));
 		}
 		idsMap.putAll(idsMapHTML);
+		idsMap.put("VIEW_ID","V"+ new Random().nextInt(1000));
+		idsMap.put("PRIMARY_KEY", "id");
 		return idsMap;
 	}
 
