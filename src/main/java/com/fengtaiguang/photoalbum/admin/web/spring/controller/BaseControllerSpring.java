@@ -54,20 +54,18 @@ public class BaseControllerSpring {
 		idsMap.put("EDIT_FORM_ID", UUID.randomUUID().toString());
 		idsMap.put("VIEW_DIALOG_ID", UUID.randomUUID().toString());
 		idsMap.put("VIEW_FORM_ID", UUID.randomUUID().toString());
-		Iterator<String> it1 = idsMap.keySet().iterator();
-		Map<String, String> idsMapHTML = new HashMap();
-		while (it1.hasNext()) {
-			String key = it1.next();
-			idsMapHTML.put(key+"_H", idsMap.get(key));
-		}
-		Iterator<String> it2 = idsMap.keySet().iterator();
-		while (it2.hasNext()) {
-			String key = it2.next();
-			idsMap.put(key,"#"+ idsMap.get(key));
-		}
-		idsMap.putAll(idsMapHTML);
-		idsMap.put("VIEW_ID","V"+ new Random().nextInt(1000));
-		idsMap.put("PRIMARY_KEY", "id");
+//		Iterator<String> it1 = idsMap.keySet().iterator();
+//		Map<String, String> idsMapHTML = new HashMap();
+//		while (it1.hasNext()) {
+//			String key = it1.next();
+//			idsMapHTML.put(key+"_H", idsMap.get(key));
+//		}
+//		Iterator<String> it2 = idsMap.keySet().iterator();
+//		while (it2.hasNext()) {
+//			String key = it2.next();
+//			idsMap.put(key,"#"+ idsMap.get(key));
+//		}
+//		idsMap.putAll(idsMapHTML);
 		return idsMap;
 	}
 

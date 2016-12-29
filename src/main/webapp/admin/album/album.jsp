@@ -9,23 +9,18 @@
 <!-- 本模块的脚本文件 -->
 <script type="text/javascript" src="${webBase}album.js"></script>
 <script type="text/javascript">
-	var ${VIEW_ID};
 	$(function() {
-		${VIEW_ID}=new AlbumView(${VIEW_JSON})
-		${VIEW_ID}.find();
-		$(body).unload(function(){
-			${VIEW_ID}.destroy()
-		  });
+		new AlbumView(${VIEW_JSON}).find();
 	});
 </script>
 </head>
 
 <body class="easyui-layout" data-options="border:false">
-	<table id="${DATAGRID_ID_H}"></table>
+	<table id="${idMap.DATAGRID_ID}"></table>
 	<!--find form -->
-	<div id="${FIND_DIALOG_ID_H}">
+	<div id="${idMap.FIND_DIALOG_ID}">
 		<div style="padding: 2px 5px;">
-			<form id="${FIND_FORM_ID_H}">
+			<form id="${idMap.FIND_FORM_ID}">
 				<table cellspacing="0" cellpadding="0">
 					<tr>
 						<td>日期: <input name="beginDate" class="easyui-datebox"

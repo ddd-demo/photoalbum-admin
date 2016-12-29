@@ -2,46 +2,45 @@
  * 原始JS封装MVC
  */
 // //////视图层///////////////////////////////////////
-var GLOBAL = {
-	getUri : function(urlName) {
-		return WebCommon.getWebPath(this[urlName]);
-	}
-};
-function AlbumView(config) {
-
-	// 拷贝系统全局常量
-	$.extend(this, GLOBAL);
-
-	var moduleName = "相册";
-
-	this.service = new BaseService({
-		moduleName : moduleName,
-	});
-	// 默认
-	$.extend(this, config);
-	var me = this;
-	// 初始化变量
-	this.initVAR = function() {
-		var uriMap = config.urlMap;
+var ViewBase = {
+	initVAR : function(config) {
+		$.extend(this, config);
+		var uriMap = config.uriMap;
 		var idMap = config.idMap;
 		// 重置补全相对URI
-		for ( var property in urlMap) {
-			var uri = urlMap[property];
+		for ( var property in uriMap) {
+			var uri = uriMap[property];
 			this[property] = this.getUri(uri);
 		}
-		for ( var property in urlMap) {
+		for ( var property in idMap) {
 			var idValue = idMap[property];
 			// 这个表示在HTML页面用的ID，前面没有加#
 			this[property + "_H"] = idValue;
 			// 这个表示Juery中使用的ID，前面加#。
 			this[property] = "#" + idValue;
 		}
-	}
-	this.destroy = function() {
-		$(me.INPUT_DIALOG_ID).dialog('destroy');
-		$(me.EDIT_DIALOG_ID).dialog('destroy');
-		$(me.VIEW_DIALOG_ID).dialog('destroy');
-	};
+	},
+	destroy : function() {
+		$(this.INPUT_DIALOG_ID).dialog('destroy');
+		$(this.EDIT_DIALOG_ID).dialog('destroy');
+		$(this.VIEW_DIALOG_ID).dialog('destroy');
+	},
+	getUri : function(uri) {
+		return WebCommon.getWebPath(uri);
+	},
+	DIV : "<div></div>"
+};
+function AlbumView(config) {
+	// 给自己起一个别名，方便使用。
+	var me = this;
+	// 拷贝系统全局常量
+	$.extend(this, ViewBase);
+
+	var moduleName = "相册";
+
+	this.service = new BaseService({
+		moduleName : moduleName,
+	});
 
 	this.find = function() {
 		me.service.doFind({
@@ -278,7 +277,14 @@ function AlbumView(config) {
 				handler : function() {
 					me.refresh();
 				}
-			} ];
+			} , '-', {
+				id : 'btnTest',
+				text : 'Test1',
+				iconCls : 'icon-reload',
+				handler : function() {
+					me.destroy();
+				}
+			}];
 
 			// 创建grid
 			$(me.DATAGRID_ID).datagrid({
@@ -308,7 +314,11 @@ function AlbumView(config) {
 	};
 	// 初始化
 	this.init = function() {
+		me.initVAR(config);
 		me.datagrid.init();
+		/*
+		 * $(body).unload(function(){ me.destroy(); });
+		 */
 	};
 	this.init();
 }

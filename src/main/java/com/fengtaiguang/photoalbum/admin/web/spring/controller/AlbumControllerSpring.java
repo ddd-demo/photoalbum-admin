@@ -3,6 +3,7 @@ package com.fengtaiguang.photoalbum.admin.web.spring.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -46,9 +47,10 @@ public class AlbumControllerSpring extends BaseControllerSpring {
 
 	@RequestMapping(MAIN_URL)
 	public String main(Map model) throws Exception {
-		model.putAll(viewUriMap(MODULE_URI));
-		model.putAll(viewIdMap());
-
+		model.put("uriMap",viewUriMap(MODULE_URI));
+		model.put("idMap",viewIdMap());
+		model.put("VIEW_ID","V"+ new Random().nextInt(1000));
+		model.put("PRIMARY_KEY", "id");
 		model.put("VIEW_JSON", mapper.writeValueAsString(model));
 		return ALBUM_MAIN_VIEW;
 	}
