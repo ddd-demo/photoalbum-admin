@@ -11,22 +11,25 @@
 
 <script type="text/javascript">
 	$(function() {
-	
+
 	});
 	function load1() {
-		$("#div1").load("main");
+		$("#if1").src("main");
 	}
 	function load2() {
-		$("#div2").load("main");
+		$("#if2").src("main");
 	}
 </script>
 </head>
 
 <body>
 	<div>
-		<button onclick="load1()">load dg1</button><button onclick="load2()">load dg2</button>
+		<button onclick="load1()">load dg1</button>
+		<button onclick="load2()">load dg2</button>
 	</div>
-	<div id="div1" style="height: 300px">11</div>
-	<div id="div2" style="height: 400px">22</div>
+	<iframe id="if1" src="main"
+		style="width: 100%; height: 300px; border: 0;"></iframe>
+	<iframe id="if2" src="main"
+		style="width: 100%; height: 300px; border: 0;"></iframe>
 </body>
 </html>

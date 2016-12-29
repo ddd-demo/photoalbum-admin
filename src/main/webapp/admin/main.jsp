@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-  
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>XXX-系统后台管理系统</title>
 
-<jsp:include page="commons/jsp/header_easyui.jsp"/>
+<jsp:include page="commons/jsp/header_easyui.jsp" />
 <style type="text/css">
 .topbg {
-	background:#B3DFDA;
-	//background: url("images/top_bg.png") repeat;
+	background: #B3DFDA; //
+	background: url("images/top_bg.png") repeat;
 	height: 65px;
 	padding-top: 8px
 }
@@ -20,12 +20,11 @@
 <body class="easyui-layout">
 	<!-- 上北 -->
 	<div data-options="region:'north',border:false" class="topbg">
-		<div class="easyui-layout" data-options="fit:true,border:false" >
-			<div data-options="region:'west',border:false" style="width: 150px;background:#B3DFDA;">
-				XXX管理系统
-			</div>
+		<div class="easyui-layout" data-options="fit:true,border:false">
+			<div data-options="region:'west',border:false"
+				style="width: 150px; background: #B3DFDA;">XXX管理系统</div>
 			<div data-options="region:'center',border:false"
-				style="text-align: right; padding-right: 10px;background:#B3DFDA;">
+				style="text-align: right; padding-right: 10px; background: #B3DFDA;">
 				<a href="#" class="easyui-linkbutton"
 					data-options="iconCls:'icon-large-picture',size:'large',iconAlign:'top'">Picture</a>
 				<a href="#" class="easyui-linkbutton"
@@ -54,7 +53,8 @@
 	 -->
 	<!-- 下南-->
 	<div data-options="region:'south',border:false"
-		style="height: 30px;text-align:center; background:#B3DFDA; padding: 5px;">Copyright ©2010-2016 深圳市XXX软件开发有限公司 版权所有</div>
+		style="height: 30px; text-align: center; background: #B3DFDA; padding: 5px;">Copyright
+		©2010-2016 深圳市XXX软件开发有限公司 版权所有</div>
 	<!-- 中心-->
 	<div data-options="region:'center'">
 		<!-- 主工作区用tab来组织 -->

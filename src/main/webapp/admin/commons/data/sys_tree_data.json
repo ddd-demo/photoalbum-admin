@@ -40,7 +40,7 @@
 	},{
 		"id":13,
 		"text":"用户管理",
-		"url":"user/user.jsp"
+		"url":"album/main"
 	},{
 		"id":14,
 		"text":"相册管理",

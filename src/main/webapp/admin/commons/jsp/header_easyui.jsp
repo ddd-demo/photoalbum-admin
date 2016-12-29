@@ -16,7 +16,9 @@
 	src="${webBase}commons/easyui1.5/jquery.min.js"></script>
 <script type="text/javascript"
 	src="${webBase}commons/easyui1.5/jquery.easyui.min.js"></script>
+<!-- 
 <script type="text/javascript" src="${webBase}commons/js/angular.min.js"></script>
+ -->
 <script type="text/javascript" src="${webBase}commons/js/date.js"></script>
 <script type="text/javascript" src="${webBase}commons/js/main.js"></script>
 <script type="text/javascript">

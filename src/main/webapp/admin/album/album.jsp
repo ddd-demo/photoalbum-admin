@@ -33,7 +33,7 @@
 						<td>至: <input name="endDate" class="easyui-datebox"
 							style="width: 110px"></td>
 						<td><a href="#" class="easyui-linkbutton"
-							iconCls="icon-search" onclick="show1() ">查询</a></td>
+							iconCls="icon-search" onclick="">查询</a></td>
 					</tr>
 				</table>
 			</form>
