@@ -6,21 +6,22 @@
 <meta charset="UTF-8">
 <title>user</title>
 <jsp:include page="../commons/jsp/header_easyui.jsp" />
-<!-- 本模块的脚本文件 -->
-<script type="text/javascript" src="${webBase}album.js"></script>
 <script type="text/javascript">
 	$(function() {
-		new AlbumView(${VIEW_JSON}).find();
+		seajs.use("album/album",function(albumViewFactory){
+			  var albumView=albumViewFactory.createAlbumView(${VIEW_JSON});
+			  albumView.find();
+		});
 	});
 </script>
 </head>
 
 <body class="easyui-layout" data-options="border:false">
-	<table id="${idMap.DATAGRID_ID}"></table>
+	<table id="DATAGRID_ID"></table>
 	<!--find form -->
-	<div id="${idMap.FIND_DIALOG_ID}">
+	<div id="FIND_DIALOG_ID">
 		<div style="padding: 2px 5px;">
-			<form id="${idMap.FIND_FORM_ID}">
+			<form id="FIND_FORM_ID">
 				<table cellspacing="0" cellpadding="0">
 					<tr>
 						<td>日期: <input name="beginDate" class="easyui-datebox"
@@ -34,6 +35,5 @@
 			</form>
 		</div>
 	</div>
-	
 </body>
 </html>
