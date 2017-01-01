@@ -62,6 +62,7 @@ public class AlbumControllerSpring extends BaseControllerSpring {
 		String jsonString = post(ALBUM_FIND_OPEN_URL, "{}");
 		CollectionType listType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, AlbumDto.class);
 		List<AlbumDto> list;
+		System.out.println("jsonString="+jsonString);
 		list = mapper.readValue(jsonString, listType);
 		QueryAndResultEasyUI queryAndResultEasyUI = new QueryAndResultEasyUI();
 		queryAndResultEasyUI.setTotal(list.size());

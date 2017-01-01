@@ -7,15 +7,23 @@ define(function(require, exports, module) {
 
 	// //////视图层///////////////////////////////////////
 	function AlbumView(config) {
-		// 给自己起一个别名，方便使用。
+		//给自己起一个别名，方便使用。
 		var me = this;
-		// 拷贝系统全局常量
-		$.extend(this, adminTool.ViewBase);
-
-		var moduleName = "相册";
-
-		this.service = new adminTool.BaseService({});
-
+		// 默认的初始化参数全部放入这里
+		var defaultConfig={
+				moduleName:"album",
+				moduleLabel:"相册",
+				INPUT_DIALOG_URL:"album_input.html",
+				EDIT_DIALOG_URL:"album_input.html",
+				VIEW_DIALOG_URL:"album_view.html"
+		};
+		// 初始化
+		this.init = function(config) {
+			//拷贝view工具模板。
+			adminTool.initConfig(this,config,defaultConfig);
+			this.datagrid.init();
+			this.find();
+		};
 		this.find = function() {
 			me.service.doFind({
 				datagridId : me.DATAGRID_ID,
@@ -40,18 +48,17 @@ define(function(require, exports, module) {
 			$(me.DATAGRID_ID).datagrid("reload");
 		};
 		this.input = function() {
-			var url = 'album_input.jsp?FORM_ID=' + this.INPUT_FORM_ID_H;
-			var winConfig = {
+			var config = {
 				id : me.INPUT_DIALOG_ID_H,
-				href : url,
+				href : me.INPUT_DIALOG_URL,
 				title : '相册输入窗口',
 				width : 400,
 				height : 300,
 				closed : false,
 				iconCls : 'icon-save',
 				onLoad : function() {
-					// $(me.INPUT_DIALOG_ID+"
-					// form").attr("id",me.INPUT_FORM_ID_H);
+					var id_j="#"+me.ID_NAME_MAP.FORM_ID_NAME;
+					$(id_j).attr("id",me.INPUT_FORM_ID_H);
 				},
 				onClose : function() {
 					$(this).dialog('destroy');
@@ -77,22 +84,19 @@ define(function(require, exports, module) {
 				}, {
 					text : '关闭',
 					handler : function() {
-						$(me.INPUT_DIALOG_ID).dialog('destroy');
+						me.closeDialog(me.INPUT_DIALOG_ID);
 					}
 				} ]
 			};
-			if ($(this.INPUT_DIALOG_ID)) {
-				$(this.INPUT_DIALOG_ID).dialog('destroy');
-			}
-
-			$(me.DIV).dialog(winConfig);
+			me.openDialog(config);
+			
 		};
 		this.edit = function() {
-			var url = 'album_input.jsp?FORM_ID=' + me.EDIT_FORM_ID_H;
+			var url = 'album_input.html';
 			var handler = function(data) {
-				var winConfig = {
+				var config = {
 					id : me.EDIT_DIALOG_ID_H,
-					href : url,
+					href : me.EDIT_DIALOG_URL,
 					title : '相册修改窗口',
 					width : 400,
 					height : 300,
@@ -101,8 +105,8 @@ define(function(require, exports, module) {
 					modal : false,
 					iconCls : 'icon-edit',
 					onLoad : function() {
-						// $(me.INPUT_DIALOG_ID+"
-						// form").attr("id",me.INPUT_FORM_ID_H);
+						var id_j="#"+me.ID_NAME_MAP.FORM_ID_NAME;
+						$(id_j).attr("id",me.EDIT_FORM_ID_H);
 						$(me.EDIT_FORM_ID).form('load', data);
 					},
 					onClose : function() {
@@ -116,14 +120,11 @@ define(function(require, exports, module) {
 					}, {
 						text : '关闭',
 						handler : function() {
-							$(me.EDIT_DIALOG_ID).dialog('close');
+							me.closeDialog(me.EDIT_DIALOG_ID);
 						}
 					} ]
 				};
-				if ($(me.INPUT_DIALOG_ID)) {
-					$(me.INPUT_DIALOG_ID).dialog('destroy');
-				}
-				$(me.DIV).dialog(winConfig);
+				me.openDialog(config);
 
 			}
 			me.service.doEdit({
@@ -141,11 +142,11 @@ define(function(require, exports, module) {
 			});
 		};
 		this.view = function() {
-			var url = 'album_view.jsp?FORM_ID=' + me.VIEW_FORM_ID_H;
+			var url = 'album_view.html';
 			var handler = function(data) {
-				var winConfig = {
+				var config = {
 					id : me.VIEW_DIALOG_ID_H,
-					href : url,
+					href : me.VIEW_DIALOG_URL,
 					title : '相册信息窗口',
 					width : 300,
 					height : 200,
@@ -154,32 +155,30 @@ define(function(require, exports, module) {
 					modal : false,
 					iconCls : 'icon-edit',
 					onLoad : function() {
-						// $(me.INPUT_DIALOG_ID+"
-						// form").attr("id",me.INPUT_FORM_ID_H);
+						var id_j="#"+me.ID_NAME_MAP.VIEW_FORM_ID_NAME;
+						$(id_j).attr("id",me.VIEW_FORM_ID_H);
+						var selEx = me.VIEW_FORM_ID + " label";
+						var labels = $(selEx);
+						if(labels){
+							labels.each(function() {
+								var val = data[$(this).attr("name")];
+								if (val != null) {
+									$(this).text(val);
+								}
+							});
+						}
 					},
 					onClose : function() {
-						$(this).dialog('destroy');
+						me.closeDialog(me.VIEW_DIALOG_ID);
 					},
 					buttons : [ {
 						text : '关闭',
 						handler : function() {
-							$(me.VIEW_DIALOG_ID).dialog('close');
+							me.closeDialog(me.VIEW_DIALOG_ID);
 						}
 					} ]
 				};
-				if ($(me.VIEW_DIALOG_ID)) {
-					$(me.VIEW_DIALOG_ID).dialog('destroy');
-				}
-				$(me.DIV).dialog(winConfig);
-
-				var selEx = me.VIEW_FORM_ID + " label";
-				var labels = $(selEx);
-				labels.each(function() {
-					var val = data[$(this).attr("name")];
-					if (val != null) {
-						$(this).text(val);
-					}
-				});
+				me.openDialog(config);
 			}
 			me.service.doView({
 				url : me.VIEW_URI,
@@ -253,8 +252,8 @@ define(function(require, exports, module) {
 						me.refresh();
 					}
 				}, '-', {
-					id : 'btnTest',
-					text : 'Test1',
+					id : 'btnClose',
+					text : 'close',
 					iconCls : 'icon-reload',
 					handler : function() {
 						me.destroy();
@@ -287,20 +286,6 @@ define(function(require, exports, module) {
 				// $(me.FIND_DIALOG_ID).appendTo(".datagrid-toolbar");
 			}
 		};
-		// 初始化
-		this.init = function(config) {
-			this.initVAR(config);
-			this.datagrid.init();
-			/*
-			 * $(body).unload(function(){ me.destroy(); });
-			 */
-		};
-		this.init(config);
 	}
-	var AlbumViewFactory = {
-		createAlbumView : function(config) {
-			return new AlbumView(config);
-		}
-	}
-	module.exports = AlbumViewFactory;
+	module.exports = new AlbumView();
 });

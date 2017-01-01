@@ -4,13 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>user</title>
+<title>ALBUM</title>
 <jsp:include page="../commons/jsp/header_easyui.jsp" />
 <script type="text/javascript">
 	$(function() {
-		seajs.use("album/album",function(albumViewFactory){
-			  var albumView=albumViewFactory.createAlbumView(${VIEW_JSON});
-			  albumView.find();
+		seajs.use("album/album",function(albumView){
+			  albumView.init(${VIEW_JSON});
 		});
 	});
 </script>
