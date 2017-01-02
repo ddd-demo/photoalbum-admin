@@ -8,6 +8,7 @@
 <META HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT">
 <META HTTP-EQUIV="expires" CONTENT="0">
 <script src="${webBase}commons/easyui1.5/jquery.min.js"></script>
+<script src="${webBase}commons/easyui1.5/jquery.easyui.min.js"></script>
 <script src="${webBase}commons/js/sea/sea.js"></script>
 <script type="text/javascript">
 	var WebCommon = {
@@ -21,7 +22,7 @@
 		alias : {
 			"jquery" : "commons/easyui1.5/jquery.min.js",
 			"easyui-js" : "commons/easyui1.5/jquery.easyui.min.js",
-			//"datetools" : "ommons/js/date_tools.js",
+			"datetools" : "ommons/js/date_tools.js",
 			"admin-tool" : "commons/js/admin-tool.js"
 		}
 	});

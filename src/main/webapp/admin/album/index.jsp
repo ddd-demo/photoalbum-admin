@@ -6,25 +6,37 @@
 <head>
 <meta charset="UTF-8">
 <title>user</title>
-<jsp:include page="../commons/jsp/header_easyui.jsp" />
+<script src="/photoalbum-admin/admin/commons/easyui1.5/jquery.min.js"></script>
+<script
+	src="/photoalbum-admin/admin/commons/easyui1.5/jquery.easyui.min.js"></script>
+
 <script type="text/javascript">
-	function load1(){
-		//$("#f1").attr("src","main");
-		$("#f1").load("main");
-	}
-	function load2(){
-		//$("#f2").attr("src","main");
-		$("#f2").load("main");
+	function initDG() {
+		var toolbar = [ "-", {
+			id : 'btnAdd1',
+			text : '新增1',
+			iconCls : 'icon-add',
+			handler : function() {
+
+			}
+		}, "-", {
+			id : 'btnAdd2',
+			text : '新增2',
+			iconCls : 'icon-add',
+			handler : function() {
+			}
+		} ];
+
+		$("#dg1").datagrid({
+			toolbar : toolbar
+		});
+
 	}
 </script>
 </head>
 
 <body>
-	<div>
-		<button onclick="load1()">load dg1</button>
-		<button onclick="load2()">load dg2</button>
-	</div>
-	<div id="f1" style="height: 300px;width: 100%"  ></div>
-	<div id="f2" style="height: 300px;width: 100%"  ></div>
+	<button onclick="initDG()">init DG</button>
+	<table id="dg1"></table>
 </body>
 </html>

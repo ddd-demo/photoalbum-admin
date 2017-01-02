@@ -7,20 +7,20 @@ define(function(require, exports, module) {
 
 	// //////视图层///////////////////////////////////////
 	function AlbumView(config) {
-		//给自己起一个别名，方便使用。
+		// 给自己起一个别名，方便使用。
 		var me = this;
 		// 默认的初始化参数全部放入这里
-		var defaultConfig={
-				moduleName:"album",
-				moduleLabel:"相册",
-				INPUT_DIALOG_URL:"album_input.html",
-				EDIT_DIALOG_URL:"album_input.html",
-				VIEW_DIALOG_URL:"album_view.html"
+		var defaultConfig = {
+			moduleName : "album",
+			moduleLabel : "相册",
+			INPUT_DIALOG_URL : "album_input.html",
+			EDIT_DIALOG_URL : "album_input.html",
+			VIEW_DIALOG_URL : "album_view.html"
 		};
 		// 初始化
 		this.init = function(config) {
-			//拷贝view工具模板。
-			adminTool.initConfig(this,config,defaultConfig);
+			// 拷贝view工具模板。
+			adminTool.initConfig(this, config, defaultConfig);
 			this.datagrid.init();
 			this.find();
 		};
@@ -57,8 +57,8 @@ define(function(require, exports, module) {
 				closed : false,
 				iconCls : 'icon-save',
 				onLoad : function() {
-					var id_j="#"+me.ID_NAME_MAP.FORM_ID_NAME;
-					$(id_j).attr("id",me.INPUT_FORM_ID_H);
+					var id_j = "#" + me.ID_NAME_MAP.FORM_ID_NAME;
+					$(id_j).attr("id", me.INPUT_FORM_ID_H);
 				},
 				onClose : function() {
 					$(this).dialog('destroy');
@@ -89,7 +89,7 @@ define(function(require, exports, module) {
 				} ]
 			};
 			me.openDialog(config);
-			
+
 		};
 		this.edit = function() {
 			var url = 'album_input.html';
@@ -105,8 +105,8 @@ define(function(require, exports, module) {
 					modal : false,
 					iconCls : 'icon-edit',
 					onLoad : function() {
-						var id_j="#"+me.ID_NAME_MAP.FORM_ID_NAME;
-						$(id_j).attr("id",me.EDIT_FORM_ID_H);
+						var id_j = "#" + me.ID_NAME_MAP.FORM_ID_NAME;
+						$(id_j).attr("id", me.EDIT_FORM_ID_H);
 						$(me.EDIT_FORM_ID).form('load', data);
 					},
 					onClose : function() {
@@ -155,11 +155,11 @@ define(function(require, exports, module) {
 					modal : false,
 					iconCls : 'icon-edit',
 					onLoad : function() {
-						var id_j="#"+me.ID_NAME_MAP.VIEW_FORM_ID_NAME;
-						$(id_j).attr("id",me.VIEW_FORM_ID_H);
+						var id_j = "#" + me.ID_NAME_MAP.VIEW_FORM_ID_NAME;
+						$(id_j).attr("id", me.VIEW_FORM_ID_H);
 						var selEx = me.VIEW_FORM_ID + " label";
 						var labels = $(selEx);
-						if(labels){
+						if (labels) {
 							labels.each(function() {
 								var val = data[$(this).attr("name")];
 								if (val != null) {
@@ -214,8 +214,6 @@ define(function(require, exports, module) {
 					width : 100
 				} ] ];
 
-				var mydg = this;
-
 				var toolbar = [ {
 					id : 'btnAdd',
 					text : '新增',
@@ -253,17 +251,35 @@ define(function(require, exports, module) {
 					}
 				}, '-', {
 					id : 'btnClose',
-					text : 'close',
+					text : '关闭',
 					iconCls : 'icon-reload',
 					handler : function() {
 						me.destroy();
 					}
-				} ];
+				}, '-', {
+					id : 'btnPrint',
+					text : '打印',
+					iconCls : 'icon-print',
+					handler : function() {
 
-				// 创建grid
-				$(me.DATAGRID_ID).datagrid({
+					}
+				}, '-', {
+					id : 'butHelp',
+					text : '帮助',
+					iconCls : 'icon-help',
+					handler : function() {
+
+					}
+				} ];
+				// 初始化工具条
+				$(me.BUTS_ID).datagrid({
+					toolbar : toolbar
+				});
+				var dgConfig = {
+					id : me.DATAGRID_ID,
 					// url : url,
 					iconCls : 'icon-forward',
+					cache : false,
 					fit : true,
 					border : false,
 					rownumbers : true,
@@ -273,17 +289,13 @@ define(function(require, exports, module) {
 					singleSelect : true,
 					// method:'get',
 					// singleSelect : true,
-					// toolbar : toolbar1,
-					toolbar : toolbar,
+					// toolbar : toolbar,
+					toolbar : me.TOOLBAR_ID,
 					idField : me.PRIMARY_KEY,
 					frozenColumns : frozenColumns,
 					columns : columns
-				});
-				// 添加查询div
-				// mydg.datagridId+',
-				// $("#find-div").prependTo('#datagridId,.datagrid-toolbar');
-
-				// $(me.FIND_DIALOG_ID).appendTo(".datagrid-toolbar");
+				};
+				$(me.DATAGRID_ID).datagrid(dgConfig);
 			}
 		};
 	}

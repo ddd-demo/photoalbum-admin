@@ -1,5 +1,4 @@
 define(function(require, exports, module) {
-	require("easyui-js");
 	function AdminTool() {
 		this.initConfig = function(view, config, defaultConfig) {
 			// 拷贝系统常用方法。
@@ -10,7 +9,7 @@ define(function(require, exports, module) {
 			}
 			view.service = new this.BaseService({});
 			view.initVAR(config);
-			//如果使用iframe
+			// 如果使用iframe
 			$(window).on('beforeunload', function() {
 				view.destroy();
 			});
@@ -35,6 +34,8 @@ define(function(require, exports, module) {
 				FIND_DIALOG_ID_NAME : "FIND_DIALOG_ID",
 				FIND_FORM_ID_NAME : "INPUT_DIALOG_ID",
 				DATAGRID_ID_NAME : "DATAGRID_ID",
+				TOOLBAR_ID_NAME : "TOOLBAR_ID",
+				BUTS_ID_NAME : "BUTS_ID",
 				INPUT_DIALOG_ID_NAME : "INPUT_DIALOG_ID",
 				INPUT_FORM_ID_NAME : "INPUT_FORM_ID",
 				EDIT_DIALOG_ID_NAME : "EDIT_DIALOG_ID",
