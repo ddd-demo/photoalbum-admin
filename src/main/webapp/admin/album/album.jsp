@@ -14,11 +14,10 @@
 	});
 </script>
 <style>
-
 </style>
 </head>
 
-<body class="easyui-layout" >
+<body class="easyui-layout">
 	<table id="DATAGRID_ID"></table>
 	<div id="TOOLBAR_ID">
 		<table id="BUTS_ID"></table>
@@ -27,12 +26,10 @@
 				<form id="FIND_FORM_ID">
 					<table>
 						<tr>
-							<td>日期: <input name="beginDate" class="easyui-datebox"
-								style="width: 110px"></td>
-							<td>至: <input name="endDate" class="easyui-datebox"
-								style="width: 110px"></td>
-							<td><a href="#" class="easyui-linkbutton"
-								iconCls="icon-search" onclick="">查询</a></td>
+							<td><input class="easyui-textbox" name="name"></td>
+
+							<td><a id="FIND_BUT_ID" href="#" class="easyui-linkbutton"
+								iconCls="icon-search">查询</a></td>
 						</tr>
 					</table>
 				</form>

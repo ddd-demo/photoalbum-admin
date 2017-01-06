@@ -22,12 +22,16 @@ define(function(require, exports, module) {
 			// 拷贝view工具模板。
 			adminTool.initConfig(this, config, defaultConfig);
 			this.datagrid.init();
+			$(me.FIND_BUT_ID).on("click", function() {
+				me.find();
+			})
 			this.find();
 		};
 		this.find = function() {
 			me.service.doFind({
 				datagridId : me.DATAGRID_ID,
-				url : me.FIND_URI
+				url : me.FIND_URI,
+				formId : me.FIND_FORM_ID
 			});
 		};
 		this.save = function() {

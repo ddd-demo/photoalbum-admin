@@ -13,6 +13,7 @@ define(function(require, exports, module) {
 			$(window).on('beforeunload', function() {
 				view.destroy();
 			});
+
 		};
 		// viewBase模板,用于拷贝到view中使用的。
 		var ViewBase = {
@@ -32,7 +33,8 @@ define(function(require, exports, module) {
 			},
 			ID_NAME_MAP : {
 				FIND_DIALOG_ID_NAME : "FIND_DIALOG_ID",
-				FIND_FORM_ID_NAME : "INPUT_DIALOG_ID",
+				FIND_FORM_ID_NAME : "FIND_FORM_ID",
+				FIND_BUT_ID_NAME : "FIND_BUT_ID",
 				DATAGRID_ID_NAME : "DATAGRID_ID",
 				TOOLBAR_ID_NAME : "TOOLBAR_ID",
 				BUTS_ID_NAME : "BUTS_ID",
@@ -297,11 +299,14 @@ define(function(require, exports, module) {
 			};
 			this.doFind = function(config) {
 				// alert(config.url);
-				// $(config.datagridId).datagrid({
-				// url : config.url,
-				// queryParams : {}
-				// });
-				$(config.datagridId).datagrid("load", config.url);
+				var url = config.url;
+				var handler = new me.CUDHandler(config.datagridId);
+				var data = $(config.formId).serialize();
+				$(config.datagridId).datagrid({
+					url : url,
+					queryParams : data
+				});
+
 			};
 		}
 	}

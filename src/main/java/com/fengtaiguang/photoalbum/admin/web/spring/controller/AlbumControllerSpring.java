@@ -58,6 +58,7 @@ public class AlbumControllerSpring extends BaseControllerSpring {
 	@RequestMapping(FIND_URL)
 	@ResponseBody
 	public IQueryAndResult find(AlbumDto album) throws Exception {
+		System.out.println(album);
 		QueryAndResult queryAndResult = new QueryAndResult();
 		String jsonString = post(ALBUM_FIND_OPEN_URL, "{}");
 		CollectionType listType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, AlbumDto.class);
