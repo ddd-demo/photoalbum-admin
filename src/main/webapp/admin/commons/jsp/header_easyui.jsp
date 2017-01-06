@@ -7,6 +7,11 @@
 <META HTTP-EQUIV="Cache-Control" CONTENT="no-store, must-revalidate">
 <META HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT">
 <META HTTP-EQUIV="expires" CONTENT="0">
+<link  rel="stylesheet" type="text/css"
+	href="${webBase}commons/easyui1.5/themes/default/easyui.css">
+<link  rel="stylesheet" type="text/css" href="${webBase}commons/easyui1.5/themes/icon.css">
+<link  rel="stylesheet"  type="text/css" href="${webBase}commons/easyui1.5/demo/demo.css">
+
 <script src="${webBase}commons/easyui1.5/jquery.min.js"></script>
 <script src="${webBase}commons/easyui1.5/jquery.easyui.min.js"></script>
 <script src="${webBase}commons/js/sea/sea.js"></script>
@@ -26,8 +31,8 @@
 			"admin-tool" : "commons/js/admin-tool.js"
 		}
 	});
-	seajs.use("commons/easyui1.5/themes/default/easyui.css");
+	/* seajs.use("commons/easyui1.5/themes/default/easyui.css");
 	seajs.use("commons/easyui1.5/themes/icon.css");
-	seajs.use("commons/easyui1.5/demo/demo.css");
+	seajs.use("commons/easyui1.5/demo/demo.css"); */
 	//seajs.use("commons/easyui1.5/jquery.min.js");
 </script>

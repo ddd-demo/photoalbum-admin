@@ -252,7 +252,7 @@ define(function(require, exports, module) {
 				}, '-', {
 					id : 'btnClose',
 					text : '关闭',
-					iconCls : 'icon-reload',
+					iconCls : 'icon-cancel',
 					handler : function() {
 						me.destroy();
 					}
@@ -271,8 +271,10 @@ define(function(require, exports, module) {
 
 					}
 				} ];
+
 				// 初始化工具条
 				$(me.BUTS_ID).datagrid({
+					border : false,
 					toolbar : toolbar
 				});
 				var dgConfig = {
@@ -296,6 +298,8 @@ define(function(require, exports, module) {
 					columns : columns
 				};
 				$(me.DATAGRID_ID).datagrid(dgConfig);
+				$(me.TOOLBAR_ID).find(".datagrid-toolbar").css("border", "0");
+
 			}
 		};
 	}

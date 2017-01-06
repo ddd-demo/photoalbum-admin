@@ -45,7 +45,6 @@
 	background: #B3DFDA;
 	background: url("images/top_bg.png") repeat;
 	height: 65px;
-	padding-top: 8px
 }
 </style>
 </head>
@@ -67,7 +66,6 @@
 					data-options="iconCls:'icon-large-smartart',size:'large',iconAlign:'top'">SmartArt</a>
 				<a href="#" class="easyui-linkbutton"
 					data-options="iconCls:'icon-large-chart',size:'large',iconAlign:'top'">Chart</a>
-
 			</div>
 		</div>
 	</div>
@@ -77,12 +75,6 @@
 		<!-- 系统侧边栏菜单 -->
 		<ul id="sysTree" class="easyui-tree"></ul>
 	</div>
-	<!-- 右东-->
-	<!-- 
-	<div
-		data-options="region:'east',split:true,collapsed:true,title:'East'"
-		style="width: 100px; padding: 10px;">east region</div>
-	 -->
 	<!-- 下南-->
 	<div data-options="region:'south',border:false"
 		style="height: 30px; text-align: center; background: #B3DFDA; padding: 5px;">Copyright

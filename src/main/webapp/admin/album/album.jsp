@@ -13,17 +13,19 @@
 		});
 	});
 </script>
+<style>
+
+</style>
 </head>
 
-<body class="easyui-layout">
-
+<body class="easyui-layout" >
 	<table id="DATAGRID_ID"></table>
 	<div id="TOOLBAR_ID">
-		<table id="BUTS_ID" data-options="border:false"></table>
+		<table id="BUTS_ID"></table>
 		<div id="FIND_DIALOG_ID">
 			<div style="padding: 5px 5px;">
 				<form id="FIND_FORM_ID">
-					<table cellspacing="0" cellpadding="0">
+					<table>
 						<tr>
 							<td>日期: <input name="beginDate" class="easyui-datebox"
 								style="width: 110px"></td>
