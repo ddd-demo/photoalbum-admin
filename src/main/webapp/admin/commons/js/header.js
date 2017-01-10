@@ -62,4 +62,5 @@ function loadJSMap(config) {
 		userJSMap : config.userJSMap,
 		userCallback : config.callback
 	});
+	
 }
