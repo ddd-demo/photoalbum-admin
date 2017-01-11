@@ -6,12 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>XXX-系统后台管理系统</title>
+<!-- 
 <script type="text/javascript" src="commons/js/header.js"></script>
 <script type="text/javascript" defer="defer">
 	loadJSMap({
 		"main" : "commons/js/main.js"
 	});
 </script>
+ -->
+<jsp:include page="commons/jsp/header_easyui.jsp" />
+<script type="text/javascript" src="commons/js/main.js"></script>
 <style type="text/css">
 .topbg {
 	background: #B3DFDA;
